@@ -2,11 +2,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import os
-from typing import List
+from typing import List, Optional, TypedDict  # ✅ added Optional, TypedDict
 
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, BaseMessage, SystemMessage
-from langgraph.graph import StateGraph, END, MessagesState
+from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.memory import MemorySaver
 
 from langchain_community.vectorstores import FAISS
@@ -29,12 +29,18 @@ ubuntu_vs = FAISS.load_local(
 print("FAISS index loaded.")
 
 
-# 1. Create the LLM (uses your OPENAI_API_KEY from the environment)
+# DEFINE STATE 
+class AgentState(TypedDict):
+    messages: List[BaseMessage]
+    intent: Optional[str]  # for now, will become Enum later
+
+
+# Creates the LLM (uses your OPENAI_API_KEY from the environment)
 llm = ChatOpenAI(model="gpt-4o-mini")  # you can change the model later
 
 
-# 2. Define the function that LangGraph will call
-def call_llm(state: MessagesState) -> MessagesState:
+# Defines the function that LangGraph will call
+def call_llm(state: AgentState) -> AgentState:
     """Takes the conversation so far, retrieves knowledge, and returns a new AI message."""
     messages: List[BaseMessage] = state["messages"]
 
@@ -67,17 +73,19 @@ def call_llm(state: MessagesState) -> MessagesState:
     # Call the model with the augmented messages (or original if no query)
     response = llm.invoke(augmented_messages)
 
-    # Add the AI response to the conversation
-    return {"messages": messages + [response]}
+    # Create a new state based on the old one, but with updated messages
+    new_state: AgentState = dict(state)  # copy the existing state (including intent)
+    new_state["messages"] = messages + [response]
+    return new_state
 
 
-# 3. Build the LangGraph
-builder = StateGraph(MessagesState)
+# Builds the LangGraph
+builder = StateGraph(AgentState)
 builder.add_node("model", call_llm)
 builder.set_entry_point("model")
 builder.add_edge("model", END)
 
-# Use an in-memory checkpointer so the agent remembers the conversation
+# Uses an in-memory checkpointer so the agent remembers the conversation
 memory = MemorySaver()
 graph = builder.compile(checkpointer=memory)
 
@@ -95,14 +103,17 @@ def main():
             break
 
         result = graph.invoke(
-            {"messages": [HumanMessage(content=user_text)]},
+            {
+                "messages": [HumanMessage(content=user_text)],
+                "intent": None,  #  provides initial intent
+            },
             config=config,
         )
 
-        # Get the last AI message from the conversation
+        # Gets the last AI message from the conversation
         last_message = result["messages"][-1]
         print("Agent:", last_message.content)
-        print()  # blank line for readability
+        print() 
 
 
 if __name__ == "__main__":

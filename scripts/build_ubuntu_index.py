@@ -46,7 +46,7 @@ def main():
     print("Saving FAISS index to ./ubuntu_qa_index ...")
     vectorstore.save_local("ubuntu_qa_index")
 
-    print("✅ Done! FAISS index saved.")
+    print(" FAISS index saved.")
 
 
 if __name__ == "__main__":
