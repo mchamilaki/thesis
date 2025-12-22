@@ -22,7 +22,7 @@
 ## 🟨 To Do
 
 ### Dec 12 – Dec 22 | Agentic Expansion
-- Finalize agent roles (Dec 12–14)
+
 - Implement multi-agent LangGraph flow (Dec 15–18)
 - Connect telecom tools (Dec 19–20)
 - Refactor agent state design (Dec 21–22)
@@ -39,7 +39,7 @@
 ---
 
 ## 🟦 In Progress
-- (Move active tasks here during execution)
+- Finalize agent roles 
 
 ---
 
