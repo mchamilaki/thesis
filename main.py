@@ -2,44 +2,46 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import os
-from typing import List, Optional, TypedDict  # ✅ added Optional, TypedDict
+from typing import List
 
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, BaseMessage, SystemMessage
 from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.memory import MemorySaver
 
+from src.state import AgentState
+
 from langchain_community.vectorstores import FAISS
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 
 
-# ---- Load Ubuntu QA FAISS index ----
-print("Loading FAISS index 'ubuntu_qa_index' ...")
+
+
+
+
+
+print("Loading FAISS index 'data/ubuntu_qa_index' ...")
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+INDEX_DIR = os.path.join(BASE_DIR, "data", "ubuntu_qa_index")
 
 ubuntu_embeddings = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
 
 ubuntu_vs = FAISS.load_local(
-    "ubuntu_qa_index",
+    INDEX_DIR,
     ubuntu_embeddings,
-    allow_dangerous_deserialization=True,  # needed for FAISS load
+    allow_dangerous_deserialization=True,
 )
 
 print("FAISS index loaded.")
 
 
-# DEFINE STATE 
-class AgentState(TypedDict):
-    messages: List[BaseMessage]
-    intent: Optional[str]  # for now, will become Enum later
-
-
 # Creates the LLM (uses your OPENAI_API_KEY from the environment)
-llm = ChatOpenAI(model="gpt-4o-mini")  # you can change the model later
+llm = ChatOpenAI(model="gpt-4o-mini")  # TODO: experiment with other models
 
 
-# Defines the function that LangGraph will call
 def call_llm(state: AgentState) -> AgentState:
     """Takes the conversation so far, retrieves knowledge, and returns a new AI message."""
     messages: List[BaseMessage] = state["messages"]
@@ -61,7 +63,7 @@ def call_llm(state: AgentState) -> AgentState:
             kb_text = "\n\n".join(d.page_content for d in docs)
             kb_system = SystemMessage(
                 content=(
-                    "You are a telecom / Ubuntu support assistant. "
+                    "You are a telecom provider support assistant. "
                     "You have access to the following Q&A knowledge base snippets. "
                     "Use them when they are relevant, but you may also rely on your own reasoning.\n\n"
                     f"Retrieved knowledge:\n{kb_text}"
@@ -70,13 +72,11 @@ def call_llm(state: AgentState) -> AgentState:
             # Prepend retrieved knowledge as a system message
             augmented_messages = [kb_system] + messages
 
-    # Call the model with the augmented messages (or original if no query)
+    # Call the model
     response = llm.invoke(augmented_messages)
 
-    # Create a new state based on the old one, but with updated messages
-    new_state: AgentState = dict(state)  # copy the existing state (including intent)
-    new_state["messages"] = messages + [response]
-    return new_state
+    # ✅ IMPORTANT: return ONLY the new message; reducer appends it
+    return {"messages": [response]}
 
 
 # Builds the LangGraph
@@ -102,18 +102,15 @@ def main():
             print("Bye!")
             break
 
+        # ✅ IMPORTANT: only pass new input message; don't overwrite state with intent=None
         result = graph.invoke(
-            {
-                "messages": [HumanMessage(content=user_text)],
-                "intent": None,  #  provides initial intent
-            },
+            {"messages": [HumanMessage(content=user_text)]},
             config=config,
         )
 
-        # Gets the last AI message from the conversation
         last_message = result["messages"][-1]
         print("Agent:", last_message.content)
-        print() 
+        print()
 
 
 if __name__ == "__main__":
