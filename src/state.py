@@ -31,7 +31,7 @@ class AgentState(TypedDict, total=False):
     total=False means fields are optional until written.
     """
 
-    # Conversation (✅ reducer appends messages instead of overwriting)
+    # Conversation (reducer appends messages instead of overwriting)
     messages: Annotated[List[BaseMessage], add_messages]
     user_query: str
 
@@ -54,3 +54,11 @@ class AgentState(TypedDict, total=False):
     error: Optional[str]
     needs_handoff: bool
     debug: Any
+
+
+    # Στοιχεία Πελάτη (Mock Context)
+    #customer_id: Optional[str]      # π.χ. "CUST-12345"
+    #auth_status: bool               # Αν έχει ταυτοποιηθεί ο χρήστης (True/False)
+    
+    # Slot Filling (Προσωρινή μνήμη για συλλογή στοιχείων π.χ. αριθμό τηλεφώνου)
+    # collected_info: dict[str, Any]
