@@ -4,13 +4,11 @@ load_dotenv()
 
 import os
 from typing import Any, Dict, List
-from datetime import datetime
 
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, BaseMessage, SystemMessage, AIMessage
 from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.memory import MemorySaver
-
 from langgraph.prebuilt import ToolNode
 
 from src.state import AgentState
@@ -21,9 +19,11 @@ from langchain_huggingface import HuggingFaceEmbeddings
 
 from src.tools.billing_tools import fetch_invoice
 
+from datetime import datetime, timezone
+
 def trace(state: Dict[str, Any], node: str, **extra) -> None:
     state.setdefault("debug", []).append(
-        {"ts": datetime.utcnow().isoformat(), "node": node, **extra}
+        {"ts": datetime.now(timezone.utc).isoformat(), "node": node, **extra}
     )
 
 
@@ -109,12 +109,25 @@ def router_node(state: AgentState) -> AgentState:
             user_text = msg.content.lower()
             break
 
+    # OVERRIDE: user asks for human at any time → escalate immediately
+    if any(w in user_text for w in ["human", "agent", "representative", "complaint", "escalate"]):
+        trace(state, "router", mode="override_escalation")
+        return {
+            "intent": Intent.ESCALATION,
+            "intent_confidence": 1.0,
+            "route_to": "escalation",
+            "current_flow": "escalation",
+        }        
+
+
+
     # Define current_flow from state before using it
     current_flow = state.get("current_flow")
 
     # Continue ONLY multi-turn flows
-    if current_flow in {"billing", "escalation"}:
-        print(f"[Router] Continuing current flow: {current_flow}")
+    current_flow = state.get("current_flow")
+    if current_flow in {"billing"}:
+        trace(state, "router", mode="continue_flow", current_flow=current_flow)
         return {
             "intent": state.get("intent", Intent.UNKNOWN),
             "intent_confidence": state.get("intent_confidence", 0.6),
@@ -127,7 +140,7 @@ def router_node(state: AgentState) -> AgentState:
     if any(w in user_text for w in ["bill", "payment", "invoice", "charge", "charged", "due"]):
         intent = Intent.BILLING
         route_to = "billing"
-    elif any(w in user_text for w in ["error", "not working", "issue", "disconnect", "router", "internet", "wifi", "slow"]):
+    elif any(w in user_text for w in ["error","not working","issue","disconnect","router","internet","wifi","slow","connection","down","offline","outage","no internet"]):
         intent = Intent.TECHNICAL_SUPPORT
         route_to = "technical_support"
     elif any(w in user_text for w in ["hi", "hello", "thanks", "how are you"]):
@@ -151,17 +164,7 @@ def router_node(state: AgentState) -> AgentState:
         "current_flow": new_flow,
     }
 
-    new_flow = route_to if route_to in {"billing", "escalation"} else None
 
-    trace(state, "router", mode="new_intent", intent=str(intent), route_to=route_to, current_flow=new_flow)
-    print(f"[Router] New intent: {intent} → route_to: {route_to}")
-
-    return {
-        "intent": intent,
-        "intent_confidence": 0.6,
-        "route_to": route_to,
-        "current_flow": new_flow,
-    }
 
 
 
@@ -257,41 +260,60 @@ def info_lookup_node(state: AgentState) -> AgentState:
 def escalation_node(state: AgentState) -> AgentState:
     msg = AIMessage(
         content=(
-            "I can help escalate this to customer support.\n\n"
-            "Please share:\n"
-            "• a 1–2 sentence description of the issue\n"
-            "• when it started\n"
-            "• service type (mobile/fixed) and your city\n"
-            "• anything you already tried\n\n"
-            "Then I’ll draft a concise ticket message you can paste to support."
+            "Thanks — please wait while I connect you to one of our human agents. "
+            "You’ll be transferred shortly."
         )
     )
+    trace(state, "handoff", needs_handoff=True)
     return {
         "messages": [msg],
         "needs_handoff": True,
-        "current_flow": "escalation",
+        "current_flow": None,
     }
 
 
 
 def chitchat_node(state: AgentState) -> AgentState:
-    msg = AIMessage(content="Type your message here")
-    return {"messages": [msg], "current_flow": None}
+    system_prompt = SystemMessage(
+        content=(
+            "You are a friendly telecom customer service assistant. "
+            "Engage naturally in small talk while remaining professional."
+        )
+    )
+
+    response = llm.invoke([system_prompt] + state["messages"])
+
+    trace(state, "chitchat_llm")
+
+    return {
+        "messages": [response],
+        "current_flow": None,
+    }
 
 
 
 
 def fallback_node(state: AgentState) -> AgentState:
-    msg = AIMessage(
+    system_guardrail = SystemMessage(
         content=(
-            "I can help with:\n"
-            "• technical support\n"
-            "• billing questions\n"
-            "• general information\n\n"
-            "Which one do you need?"
+            "You are a telecom customer service assistant. "
+            "The user's request did not clearly match billing, technical support, "
+            "or escalation. Respond conversationally, clarify their need, "
+            "and gently guide them toward supported topics if necessary."
         )
     )
-    return {"messages": [msg], "current_flow": None}
+
+    augmented_messages = [system_guardrail] + state["messages"]
+
+    response = llm.invoke(augmented_messages)
+
+    trace(state, "fallback_llm")
+
+    return {
+        "messages": [response],
+        "current_flow": None,
+    }
+
 
 
 
@@ -302,13 +324,13 @@ builder = StateGraph(AgentState)
 # Nodes
 builder.add_node("router", router_node)
 builder.add_node("technical_support", call_llm)
-builder.add_node("billing", billing_node)
+builder.add_node("billing", billing_llm_node)
 builder.add_node("info_lookup", info_lookup_node)
 builder.add_node("escalation", escalation_node)
 builder.add_node("chitchat", chitchat_node)
 builder.add_node("fallback", fallback_node)
 builder.add_node("tools", tool_node)
-builder.add_node("billing_llm", billing_llm_node)
+
 
 
 
@@ -330,25 +352,25 @@ builder.add_conditional_edges(
 )
 
 #Agentic tools flow for billing
-builder.add_edge("billing", "billing_llm")
 builder.add_conditional_edges(
-    "billing_llm",
+    "billing",
     billing_should_use_tools,
     {"tools": "tools", "done": END},
 )
-builder.add_edge("tools", "billing_llm")
+builder.add_edge("tools", "billing")
 
-# Specialist -> END
+
+
+# All other specialist nodes end normally
 builder.add_edge("technical_support", END)
-builder.add_edge("billing", END)
 builder.add_edge("info_lookup", END)
-builder.add_edge("escalation", END)
 builder.add_edge("chitchat", END)
 builder.add_edge("fallback", END)
 
+# Escalation only when router routes to it
+builder.add_edge("escalation", END)
 
-# In-memory checkpointer so the agent remembers the conversation
-memory = MemorySaver()
+memory=MemorySaver()  # Saves all states to an in-memory list, can be replaced with a database saver for production
 graph = builder.compile(checkpointer=memory)
 
 
@@ -358,7 +380,7 @@ def main():
     config = {"configurable": {"thread_id": "thesis-demo"}}
 
     while True:
-        user_text = input("Hello! How can I help you today? : ").strip()
+        user_text = input("Type your message here: ").strip()
         if user_text.lower() in {"quit", "exit"}:
             print("Thank you for using our service! Feel free to reach out anytime. Goodbye!")
             break
@@ -368,12 +390,18 @@ def main():
             config=config,
         )
 
-        last_message = result["messages"][-1]
-        print("Agent:", last_message.content)
-        print()
+        last_ai = next(
+            (m for m in reversed(result["messages"]) if isinstance(m, AIMessage)),
+            None,
+        )
+
+        if last_ai:
+            print("Agent:", last_ai.content)
+            print()
 
 
 
+   
 
 if __name__ == "__main__":
     main()
