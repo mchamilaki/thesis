@@ -14,10 +14,7 @@
 
 ## To Do (This Sprint)
 ### Agent (Implementation)
-- [ ] Stabilize router logic (intent + confidence + fallbacks)
-- [ ] Fix state overwrite issues (messages, current_flow, intent fields)
-- [ ] Confirm multi-turn billing flow works end-to-end
-- [ ] Confirm escalation flow works end-to-end
+
 - [ ] Clean separation: `main.py` vs `src/nodes/*.py` (no circular imports)
 - [ ] Add structured logging (minimal, consistent, removable)
 - [ ] Freeze architecture (no new nodes after freeze date)
@@ -101,8 +98,10 @@
 ---
 
 ## Done
-- [ ] (Move completed items here)
-
+- [ ] Stabilize router logic (intent + confidence + fallbacks)
+- [ ] Fix state overwrite issues (messages, current_flow, intent fields)
+- [ ] Confirm multi-turn billing flow works end-to-end
+- [ ] Confirm escalation flow works end-to-end
 ---
 
 ## Milestones
