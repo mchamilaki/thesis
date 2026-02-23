@@ -2,35 +2,43 @@ This repository contains the code and documentation for my MSc thesis project, w
 
 The system uses Large Language Models (LLMs) and LangGraph to create a modular, multi-step, and tool-aware agent capable of reasoning, retrieving information, and performing task-oriented actions.
 
+⚙️ Setup & Installation
 
-Setup & Installation
-1. Clone the repository
+Clone the repository:
+
 git clone https://github.com/your-username/agentic-telecom-chatbot.git
 cd agentic-telecom-chatbot
 
-2. Create & activate virtual environment
-python -m venv venv
-source venv/bin/activate   # Windows: venv\Scripts\activate
 
-3. Install dependencies
+Create and activate a virtual environment:
+python -m venv venv
+
+
+Mac/Linux:
+source venv/bin/activate
+
+Windows:
+venv\Scripts\activate
+
+
+Install dependencies:
 pip install -r requirements.txt
 
-4. Environment variables
+🔐 Environment Variables
 
-Create a .env file:
-
+Create a .env file and put your own API key here:
 OPENAI_API_KEY=your_api_key_here
 
-▶️ Running the Agent
-python src/main.py
+▶️ Running the System
+python main.py
 
 
-The agent initializes:
+The agent will initialize:
 
-FAISS vector store
-
+FAISS semantic memory
 LLM
-
-LangGraph execution flow
+LangGraph execution graph
+Checkpoint-based memory
 
 You can then interact with the chatbot via the command line.
+
