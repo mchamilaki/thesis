@@ -119,13 +119,10 @@ def router_node(state: AgentState) -> AgentState:
             "current_flow": "escalation",
         }        
 
-
-
     # Define current_flow from state before using it
     current_flow = state.get("current_flow")
 
     # Continue ONLY multi-turn flows
-    current_flow = state.get("current_flow")
     if current_flow in {"billing"}:
         trace(state, "router", mode="continue_flow", current_flow=current_flow)
         return {
@@ -135,27 +132,40 @@ def router_node(state: AgentState) -> AgentState:
             "current_flow": current_flow,
         }
 
-
-    #  Otherwise, route using keyword matching - rules to be replaced with a proper intent classifier later)
+    # Otherwise, route using keyword matching (rules to be replaced with a proper intent classifier later)
     if any(w in user_text for w in ["bill", "payment", "invoice", "charge", "charged", "due"]):
         intent = Intent.BILLING
         route_to = "billing"
-    elif any(w in user_text for w in ["error","not working","issue","disconnect","router","internet","wifi","slow","connection","down","offline","outage","no internet"]):
+
+    elif any(w in user_text for w in [
+        "error", "not working", "issue", "disconnect", "router", "internet", "wifi",
+        "can't", "cannot", "login", "log in", "data", "signal", "slow",
+        "connection", "down", "offline", "outage", "no internet"
+    ]):
         intent = Intent.TECHNICAL_SUPPORT
         route_to = "technical_support"
+
     elif any(w in user_text for w in ["hi", "hello", "thanks", "how are you"]):
         intent = Intent.CHITCHAT
         route_to = "chitchat"
+
     elif any(w in user_text for w in ["human", "agent", "representative", "complaint", "escalate"]):
         intent = Intent.ESCALATION
         route_to = "escalation"
+
+    elif any(w in user_text for w in [
+        "plan", "plans", "offer", "available", "price", "cost", "pricing",
+        "package", "packages", "subscription", "contract", "fiber", "broadband",
+        "speed", "speeds", "roaming", "international", "services", "discount", "student"
+    ]):
+        intent = Intent.INFO_LOOKUP
+        route_to = "info_lookup"
+
     else:
         intent = Intent.UNKNOWN
         route_to = "fallback"
-    new_flow = route_to if route_to in {"billing", "escalation"} else None
 
-    trace(state, "router", mode="new_intent", intent=str(intent), route_to=route_to, current_flow=new_flow)
-    print(f"[Router] New intent: {intent} → route_to: {route_to}")
+    new_flow = route_to if route_to in {"billing", "escalation"} else None
 
     return {
         "intent": intent,
