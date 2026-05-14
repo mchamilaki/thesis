@@ -1,30 +1,29 @@
 import streamlit as st
+import uuid
 import os
-from typing import Any, Dict, List
-from datetime import datetime, timezone
 from dotenv import load_dotenv
 
-# --- Load Environment Variables ---
+from langchain_core.messages import HumanMessage, BaseMessage, SystemMessage, AIMessage
+
+
+
+#  Load Environment Variables 
 load_dotenv()
 
-# --- LangChain & LangGraph Imports ---
-from langchain_openai import ChatOpenAI
-from langchain_core.messages import HumanMessage, BaseMessage, SystemMessage, AIMessage
-from langgraph.graph import StateGraph, END
-from langgraph.checkpoint.memory import MemorySaver
-from langgraph.prebuilt import ToolNode
-from langchain_community.vectorstores import FAISS
-from langchain_huggingface import HuggingFaceEmbeddings
+# Import compiled graph from main.py 
+from main import get_graph
 
-# --- Import your custom modules ---
-# Ensure these exist in your src/ folder or adjust imports accordingly
-from src.state import AgentState
 from src.intents import Intent
-from src.tools.billing_tools import fetch_invoice
 
-# --- Page Config (Tab Title & Icon) ---
+
+#  Page Config (Tab Title & Icon)
 st.set_page_config(page_title="Telecom Agent Demo", page_icon="🤖")
 
+
+
+#-------------------------------
+#-------TODO----
+#--------- CHECK BELOW
 # --- 1. Setup Graph & Resources (Cached) ---
 # We use @st.cache_resource so the model/vector store loads only ONCE, not on every click.
 
@@ -149,7 +148,6 @@ graph = setup_graph()
 if "messages" not in st.session_state:
     st.session_state.messages = []  # Store chat history for UI
 if "thread_id" not in st.session_state:
-    import uuid
     st.session_state.thread_id = str(uuid.uuid4())
 
 # --- 3. Sidebar (For Thesis Demo) ---

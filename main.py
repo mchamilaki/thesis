@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -19,7 +19,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 
 from src.tools.billing_tools import fetch_invoice
 
-from datetime import datetime, timezone
+
 
 def trace(state: Dict[str, Any], node: str, **extra) -> None:
     state.setdefault("debug", []).append(
@@ -57,6 +57,19 @@ billing_llm = llm.bind_tools([fetch_invoice])
 tools = [fetch_invoice]
 tool_node = ToolNode(tools)
 
+
+# System Prompts 
+
+BILLING_SYSTEM = SystemMessage(content="""
+You are a telecom billing assistant.
+If the user hasn't provided their account ID, ask for it before doing anything.
+Once you have it, call fetch_invoice to retrieve their billing details.
+After receiving the result, explain the status clearly and helpfully.
+If the account is not found, apologize and suggest they double-check their ID.
+""")
+
+
+#NODES
 
 def call_llm(state: AgentState) -> AgentState:
     """Takes the conversation so far, retrieves knowledge, and returns a new AI message."""
@@ -174,77 +187,14 @@ def router_node(state: AgentState) -> AgentState:
     }
 
 
-
-
-
-
-def billing_node(state: AgentState) -> AgentState:
-    messages = state["messages"]
-
-    # Get latest user message
-    user_text = ""
-    for msg in reversed(messages):
-        if isinstance(msg, HumanMessage):
-            user_text = msg.content.strip().lower()
-            break
-
-    # Handle menu choices (1 / 2 / 3) for billing flow
-    if user_text == "1":
-        reply = (
-            "Latest invoice total selected.\n\n"
-            "Open your provider app or website and go to:\n"
-            "Billing → Invoices → Latest invoice → Total amount.\n\n"
-            "If you want, tell me which provider you use and I can give exact steps."
-        )
-        return {
-            "messages": [AIMessage(content=reply)],
-            "current_flow": None,  # billing flow completed
-        }
-
-    if user_text == "2":
-        reply = (
-            "Amount due / balance selected.\n\n"
-            "Usually found under:\n"
-            "Billing → Balance / Amount due → Due date.\n\n"
-            "Is this a mobile or a fixed service?"
-        )
-        return {
-            "messages": [AIMessage(content=reply)],
-            "current_flow": None,
-        }
-
-    if user_text == "3":
-        reply = (
-            "Itemized charges selected.\n\n"
-            "Go to:\n"
-            "Billing → Invoice details → Breakdown / Usage / Charges.\n\n"
-            "If something looks wrong, I can help you prepare a support message."
-        )
-        return {
-            "messages": [AIMessage(content=reply)],
-            "current_flow": None,
-        }
-
-    # Otherwise, show the menu (first turn)
-    msg = AIMessage(
-        content=(
-            "I can’t access your account billing directly, but I can still help.\n\n"
-            "What do you want to check?\n"
-            "1) Latest invoice total\n"
-            "2) Amount due / balance\n"
-            "3) Itemized charges\n\n"
-            "Reply with 1 / 2 / 3."
-        )
-    )
-    return {
-        "messages": [msg],
-        "current_flow": "billing",  # keep flow open
-    }
-
-
 def billing_llm_node(state: AgentState) -> AgentState:
+    """Agentic billing node: asks for account ID if needed, calls fetch_invoice, explains result."""
     messages: List[BaseMessage] = state["messages"]
-    response = billing_llm.invoke(messages)
+
+    # Prepend the billing system prompt on every invocation
+    augmented_messages = [BILLING_SYSTEM] + messages
+
+    response = billing_llm.invoke(augmented_messages)
 
     trace(
         state,
@@ -252,6 +202,8 @@ def billing_llm_node(state: AgentState) -> AgentState:
         has_tool_calls=bool(getattr(response, "tool_calls", None)),
     )
     return {"messages": [response], "current_flow": "billing"}
+
+
 
 
 def billing_should_use_tools(state: AgentState) -> str:
@@ -382,6 +334,9 @@ builder.add_edge("escalation", END)
 memory=MemorySaver()  # Saves all states to an in-memory list, can be replaced with a database saver for production
 graph = builder.compile(checkpointer=memory)
 
+def get_graph():
+    """Export the compiled graph for use in app.py."""
+    return graph
 
 
 def main():
