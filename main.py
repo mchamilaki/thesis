@@ -27,8 +27,7 @@ def trace(state: Dict[str, Any], node: str, **extra) -> None:
     )
 
 
-
-
+# --- Semantic Memory (FAISS) ---
 
 print("Initializing semantic memory (FAISS index)…")
 
@@ -51,7 +50,7 @@ print("Semantic memory ready.")
 
 
 # Creates the LLM (uses your OPENAI_API_KEY from the environment)
-llm = ChatOpenAI(model="gpt-4o-mini")  # TODO: experiment with other models
+llm = ChatOpenAI(model="gpt-4o-mini",temperature=0.0)  # TODO: experiment with other models
 
 billing_llm = llm.bind_tools([fetch_invoice])
 
