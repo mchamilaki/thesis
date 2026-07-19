@@ -1,9 +1,11 @@
-from datetime import datetime, timezone
-from dotenv import load_dotenv
-load_dotenv()
+print("RUNNING FILE:", __file__)
 
 import os
+from datetime import datetime, timezone
 from typing import Any, Dict, List
+
+from dotenv import load_dotenv
+load_dotenv()
 
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, BaseMessage, SystemMessage, AIMessage
@@ -14,11 +16,10 @@ from langgraph.prebuilt import ToolNode
 from src.state import AgentState
 from src.intents import Intent
 
-from langchain_community.vectorstores import FAISS #vector search library, fast similarity search 
+from langchain_community.vectorstores import FAISS  # vector search library, fast similarity search
 from langchain_huggingface import HuggingFaceEmbeddings
 
 from src.tools.billing_tools import fetch_invoice
-
 
 
 def trace(state: Dict[str, Any], node: str, **extra) -> None:
@@ -35,8 +36,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 INDEX_DIR = os.path.join(BASE_DIR, "data", "ubuntu_qa_index")
 
 ubuntu_embeddings = HuggingFaceEmbeddings(
- 
- 
     model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
 
@@ -365,7 +364,29 @@ def main():
 
 
 
-   
+
 
 if __name__ == "__main__":
-    main()
+    from langchain_core.messages import HumanMessage, AIMessage
+
+    config = {"configurable": {"thread_id": "debug"}}
+
+    print("Chatbot ready. Type 'exit' to quit.")
+
+    while True:
+        user_input = input("You: ")
+
+        if user_input.lower() in {"exit", "quit"}:
+            break
+
+        result = graph.invoke(
+            {"messages": [HumanMessage(content=user_input)]},
+            config=config,
+        )
+
+        last_ai = next(
+            (m for m in reversed(result["messages"]) if isinstance(m, AIMessage)),
+            None,
+        )
+
+        print("Bot:", last_ai.content if last_ai else "No response.")
