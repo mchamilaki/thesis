@@ -99,7 +99,6 @@ If the user hasn't provided their account ID, ask for it before doing anything.
 Once you have it, call fetch_invoice to retrieve their billing details.
 After receiving the result, explain the status clearly and helpfully.
 If the account is not found, apologize and suggest they double-check their ID.
-Amounts are in euros (EUR); format them with the € symbol, e.g. €45.50.
 """)
 
 
@@ -162,10 +161,21 @@ def router_node(state: AgentState) -> AgentState:
             "intent": Intent.ESCALATION,
             "intent_confidence": 1.0,
             "route_to": "escalation",
-            "current_flow": "None",
+            "current_flow": "escalation",
         }        
 
+    # Define current_flow from state before using it
+    current_flow = state.get("current_flow")
 
+    # Continue ONLY multi-turn flows
+    if current_flow in {"billing"}:
+        trace(state, "router", mode="continue_flow", current_flow=current_flow)
+        return {
+            "intent": state.get("intent", Intent.UNKNOWN),
+            "intent_confidence": state.get("intent_confidence", 0.6),
+            "route_to": current_flow,
+            "current_flow": current_flow,
+        }
     
     
     # LLM-based intent classification (replaces keyword matching)
@@ -229,7 +239,7 @@ def billing_llm_node(state: AgentState) -> AgentState:
         "billing_llm",
         has_tool_calls=bool(getattr(response, "tool_calls", None)),
     )
-    return {"messages": [response], "current_flow": "None"}
+    return {"messages": [response], "current_flow": "billing"}
 
 
 
