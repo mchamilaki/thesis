@@ -1,0 +1,85 @@
+{
+  "total": 96,
+  "exact_accuracy": 0.9166666666666666,
+  "judge_reasonable_rate": 1.0,
+  "by_difficulty": {
+    "easy": {
+      "exact": 31,
+      "judge": 33,
+      "n": 33
+    },
+    "medium": {
+      "exact": 28,
+      "judge": 31,
+      "n": 31
+    },
+    "hard": {
+      "exact": 23,
+      "judge": 26,
+      "n": 26
+    },
+    "context": {
+      "exact": 6,
+      "judge": 6,
+      "n": 6
+    }
+  },
+  "disagreements": [
+    {
+      "message": "can you write me a poem",
+      "gold": "fallback",
+      "predicted": "chitchat",
+      "judge_ideal": "chitchat",
+      "why": "The request for a poem is a form of playful interaction, fitting the chitchat intent, as it does not pertain to any specific service-related category."
+    },
+    {
+      "message": "what year did the company get founded",
+      "gold": "fallback",
+      "predicted": "info_lookup",
+      "judge_ideal": "info_lookup",
+      "why": "The user is seeking information about the company's history, which aligns with the info_lookup intent."
+    },
+    {
+      "message": "do you know any good recipes",
+      "gold": "fallback",
+      "predicted": "chitchat",
+      "judge_ideal": "chitchat",
+      "why": "The user's message is a casual inquiry unrelated to telecom services, fitting the chitchat intent."
+    },
+    {
+      "message": "tell me a joke",
+      "gold": "fallback",
+      "predicted": "chitchat",
+      "judge_ideal": "chitchat",
+      "why": "Requesting a joke is a form of small talk, which fits well under the chitchat intent."
+    },
+    {
+      "message": "I love your logo design",
+      "gold": "fallback",
+      "predicted": "chitchat",
+      "judge_ideal": "chitchat",
+      "why": "The message is a compliment and fits well within the chitchat category, as it is not related to any specific service or issue."
+    },
+    {
+      "message": "what's your favorite movie",
+      "gold": "fallback",
+      "predicted": "chitchat",
+      "judge_ideal": "chitchat",
+      "why": "The user's message is a casual question that fits well under the chitchat category, as it is not related to any specific service or support topic."
+    },
+    {
+      "message": "are you a real person or a robot",
+      "gold": "fallback",
+      "predicted": "chitchat",
+      "judge_ideal": "chitchat",
+      "why": "The user's message is a common form of small talk or curiosity about the nature of the chatbot, which fits well under the chitchat intent."
+    },
+    {
+      "message": "who made you",
+      "gold": "fallback",
+      "predicted": "chitchat",
+      "judge_ideal": "chitchat",
+      "why": "The question 'who made you' is a form of small talk or curiosity about the chatbot's origin, which fits the chitchat intent."
+    }
+  ]
+}

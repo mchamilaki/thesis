@@ -1,0 +1,103 @@
+﻿id,context,message,gold_intent,difficulty,note
+1,,I want to check my invoice,billing,easy,keyword: invoice
+2,,why was I charged twice this month,billing,easy,keyword: charged
+3,,my bill seems too high,billing,easy,keyword: bill
+4,,when is my payment due,billing,easy,keyword: payment/due
+5,,can you show me my latest statement,billing,medium,no core keyword; 'statement'
+6,,how much do I owe,billing,hard,no billing keyword at all
+7,,I think you took money from my account twice,billing,hard,"paraphrase, no keyword"
+8,,what's my outstanding balance,billing,medium,'balance' not in keyword list
+9,,did my last payment go through,billing,easy,keyword: payment
+10,,I need a copy of last month's receipt,billing,hard,'receipt' not a keyword
+11,,can I get an itemized breakdown of my charges,billing,medium,keyword: charges
+12,,something looks wrong with what I'm being billed,billing,hard,paraphrase
+13,,I was overcharged for international calls,billing,medium,keyword: charged
+14,,remind me what my monthly total comes to,billing,hard,"no keyword, conversational"
+15,,is there a late fee on my account,billing,medium,"fee/account, ambiguous-ish"
+16,,my internet is not working,technical_support,easy,keyword: internet/not working
+17,,the wifi keeps dropping,technical_support,easy,keyword: wifi
+18,,I can't connect to the network,technical_support,easy,keyword: can't/connection
+19,,my router keeps restarting,technical_support,easy,keyword: router
+20,,everything is so slow today,technical_support,medium,"keyword: slow, but vague"
+21,,the connection drops every few minutes,technical_support,medium,keyword: connection
+22,,nothing loads when I open my browser,technical_support,hard,"no keyword, symptom described"
+23,,my signal has been terrible since yesterday,technical_support,medium,keyword: signal
+24,,the little lights on my modem are all red,technical_support,hard,no keyword; device symptom
+25,,I keep getting kicked offline during calls,technical_support,medium,keyword: offline
+26,,pages take forever to open,technical_support,hard,paraphrase of slow
+27,,there's no service on my phone at all,technical_support,medium,keyword: service/no
+28,,wifi works but it's painfully slow,technical_support,medium,keyword: wifi/slow
+29,,my tv box won't turn on,technical_support,hard,"device issue, no keyword"
+30,,I have an outage in my area,technical_support,easy,keyword: outage
+31,,what plans do you offer,info_lookup,easy,keyword: plans/offer
+32,,how much does the fiber package cost,info_lookup,easy,keyword: fiber/package/cost
+33,,do you have any student discounts,info_lookup,easy,keyword: discount/student
+34,,what are your roaming rates,info_lookup,easy,keyword: roaming
+35,,tell me about your broadband speeds,info_lookup,easy,keyword: broadband/speeds
+36,,is there a contract or is it month to month,info_lookup,medium,keyword: contract
+37,,what's included in the premium subscription,info_lookup,medium,keyword: subscription
+38,,which package is best for a family of four,info_lookup,medium,keyword: package
+39,,do you sell international calling add-ons,info_lookup,hard,'international' only
+40,,what would it cost to upgrade my speed,info_lookup,medium,keyword: cost/speed
+41,,are there any current promotions,info_lookup,hard,"no keyword in list, 'promotions'"
+42,,can I bundle tv and internet together,info_lookup,hard,no clear keyword
+43,,what's the difference between your two fiber tiers,info_lookup,medium,keyword: fiber
+44,,do you offer service in rural areas,info_lookup,hard,'service' could confuse w/ tech
+45,,how fast is your fastest broadband option,info_lookup,medium,keyword: broadband
+46,,I want to speak to a human,escalation,easy,keyword: human
+47,,get me a real agent now,escalation,easy,keyword: agent
+48,,let me talk to a representative,escalation,easy,keyword: representative
+49,,I'd like to file a complaint,escalation,easy,keyword: complaint
+50,,please escalate this,escalation,easy,keyword: escalate
+51,,"this bot is useless, connect me to a person",escalation,medium,keyword: person(?)/human-ish
+52,,I demand to speak with someone in charge,escalation,hard,no exact keyword
+53,,can I be transferred to customer service staff,escalation,medium,"'staff', no keyword"
+54,,"stop, I want a live person not a machine",escalation,hard,no listed keyword
+55,,"this is unacceptable, I need to lodge a formal complaint",escalation,easy,keyword: complaint
+56,,who can I talk to about a serious problem,escalation,hard,"ambiguous, leans escalation"
+57,,"I've had enough, put me through to an operator",escalation,hard,"'operator', no keyword"
+58,,I want to make an official complaint about your service,escalation,easy,keyword: complaint
+59,,connect me with a supervisor immediately,escalation,medium,"'supervisor', no keyword"
+60,,get me someone who can actually help,escalation,hard,"no keyword, intent clear"
+61,,hi there,chitchat,easy,keyword: hi
+62,,hello,chitchat,easy,keyword: hello
+63,,thanks so much,chitchat,easy,keyword: thanks
+64,,how are you today,chitchat,easy,keyword: how are you
+65,,good morning,chitchat,medium,"greeting, no exact keyword"
+66,,you're doing great,chitchat,medium,"compliment, no keyword"
+67,,have a nice day,chitchat,hard,no keyword
+68,,"that's awesome, appreciate it",chitchat,medium,keyword: (appreciate)
+69,,lol okay,chitchat,hard,casual acknowledgment
+70,,nice to meet you,chitchat,hard,no keyword
+71,,hey what's up,chitchat,medium,greeting
+72,,"cool, thank you",chitchat,easy,keyword: thank you
+73,,just saying hi,chitchat,medium,keyword: hi
+74,,you're the best,chitchat,hard,compliment
+75,,okay great talk soon,chitchat,hard,"sign-off, no keyword"
+76,,asdfghjkl,unknown,easy,gibberish
+77,,what's the weather like,unknown,medium,out of domain
+78,,can you write me a poem,unknown,medium,out of domain
+79,,what year did the company get founded,unknown,hard,"company q, not supported intent"
+80,,do you know any good recipes,unknown,easy,out of domain
+81,,tell me a joke,unknown,medium,out of domain
+82,,...,unknown,easy,empty-ish
+83,,I love your logo design,unknown,hard,on-topic-ish but no intent
+84,,what's your favorite movie,unknown,easy,out of domain
+85,,translate this to french for me,unknown,medium,out of domain task
+86,,qwerty 12345,unknown,easy,gibberish
+87,,are you a real person or a robot,unknown,hard,meta question
+88,,who made you,unknown,medium,"meta, not a support intent"
+89,,can you help me with my homework,unknown,medium,out of domain
+90,,random text here nothing specific,unknown,easy,no intent
+91,"User: How much do I owe?
+Assistant: Could you please provide your account ID so I can retrieve your billing details?",123,billing,context,bare account ID; only classifiable from context
+92,"User: How much do I owe?
+Assistant: Could you please provide your account ID so I can retrieve your billing details?",it's 456,billing,context,account ID with filler
+93,"User: my internet keeps dropping
+Assistant: How long has this been happening, and have you tried restarting your router?","since yesterday, and yes I restarted it",technical_support,context,follow-up answer
+94,"User: my internet keeps dropping
+Assistant: How long has this been happening, and have you tried restarting your router?",no I haven't tried that yet,technical_support,context,follow-up answer
+95,"User: what fiber plans do you have?
+Assistant: We offer three fiber tiers: 100, 500, and 1000 Mbps. Would you like details on any?",the middle one,info_lookup,context,referential follow-up
+96,"User: what fiber plans do you have?
+Assistant: We offer three fiber tiers: 100, 500, and 1000 Mbps. Would you like details on any?",yes tell me about the fastest,info_lookup,context,follow-up
