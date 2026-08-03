@@ -18,10 +18,10 @@ from langgraph.prebuilt import ToolNode
 from src.state import AgentState
 from src.intents import Intent
 
-from langchain_community.vectorstores import FAISS  # vector search library, fast similarity search
-from langchain_huggingface import HuggingFaceEmbeddings
+
 
 from src.tools.billing_tools import fetch_invoice
+from src.tools.retrieval_tools import search_knowledge_base
 
 
 def trace(state: Dict[str, Any], node: str, **extra) -> None:
@@ -30,33 +30,29 @@ def trace(state: Dict[str, Any], node: str, **extra) -> None:
     )
 
 
-# --- Semantic Memory (FAISS) ---
 
-print("Initializing semantic memory (FAISS index)…")
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-INDEX_DIR = os.path.join(BASE_DIR, "data", "ubuntu_qa_index")
-
-ubuntu_embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
-)
-
-ubuntu_vs = FAISS.load_local(
-    INDEX_DIR,
-    ubuntu_embeddings,
-    allow_dangerous_deserialization=True,
-)
-
-print("Semantic memory ready.")
 
 
 # Creates the LLM (uses your OPENAI_API_KEY from the environment)
 llm = ChatOpenAI(model="gpt-4o-mini",temperature=0.0)  # TODO: experiment with other models
 
+# Billing agent: LLM with the invoice tool bound
 billing_llm = llm.bind_tools([fetch_invoice])
 
-tools = [fetch_invoice]
-tool_node = ToolNode(tools)
+# Technical support agent: LLM with the knowledge-base search tool bound
+tech_llm = llm.bind_tools([search_knowledge_base])
+
+TECH_SYSTEM = SystemMessage(content="""
+You are a telecom technical support assistant.
+For any technical question or problem, ALWAYS search the knowledge base before
+answering, using search_knowledge_base with a concise technical query you
+formulate yourself. You may search more than once if the user describes multiple
+issues or the first results are not relevant.
+Only skip searching when the user is merely clarifying or acknowledging
+(e.g. "thanks", "how long will that take?").
+Base your answer on the retrieved results when they are relevant; if they are
+not, say so honestly and give your best general guidance.
+""")
 
 
 
@@ -105,43 +101,25 @@ Amounts are in euros (EUR); format them with the € symbol, e.g. €45.50.
 
 #NODES
 
-def call_llm(state: AgentState) -> AgentState:
-    """Takes the conversation so far, retrieves knowledge, and returns a new AI message."""
+# Creating agentic nodes for each flow and its routing logic
+def tech_support_node(state: AgentState) -> AgentState:
+    """Agentic technical support: decides when/what to search, then answers."""
     messages: List[BaseMessage] = state["messages"]
+    response = tech_llm.invoke([TECH_SYSTEM] + messages)
 
-    # Find the most recent user message (if any)
-    user_query = None
-    for msg in reversed(messages):
-        if isinstance(msg, HumanMessage):
-            user_query = msg.content
-            break
+    trace(
+        state,
+        "tech_support_llm",
+        has_tool_calls=bool(getattr(response, "tool_calls", None)),
+    )
+    return {"messages": [response], "current_flow": None}
 
-    augmented_messages: List[BaseMessage] = list(messages)
 
-    if user_query:
-        # Use FAISS index to retrieve relevant Q&A
-        docs = ubuntu_vs.similarity_search(user_query, k=5)
-
-        if docs:
-            kb_text = "\n\n".join(d.page_content for d in docs)
-            kb_system = SystemMessage(
-                content=(
-                    "You are a telecom provider support assistant. "
-                    "You have access to the following Q&A knowledge base snippets. "
-                    "Use them when they are relevant, but you may also rely on your own reasoning.\n\n"
-                    f"Retrieved knowledge:\n{kb_text}"
-                )
-            )
-            # Prepend retrieved knowledge as a system message
-            augmented_messages = [kb_system] + messages
-
-    # Call the model
-    response = llm.invoke(augmented_messages)
-
-    # IMPORTANT: return ONLY the new message; reducer appends it
-    trace(state, "technical_support_llm", used_kb=bool(user_query), tool_calls=bool(getattr(response, "tool_calls", None)))
-    return {"messages": [response]}
-
+def tech_should_use_tools(state: AgentState) -> str:
+    last_message = state["messages"][-1]
+    if getattr(last_message, "tool_calls", None):
+        return "tools"
+    return "done"
 
 
 
@@ -242,9 +220,15 @@ def billing_should_use_tools(state: AgentState) -> str:
 
 
 def info_lookup_node(state: AgentState) -> AgentState:
-    result = call_llm(state)
-    result["current_flow"] = None
-    return result
+    system_prompt = SystemMessage(
+        content=(
+            "You are a telecom customer service assistant answering questions about "
+            "plans, pricing, packages, and services. Answer helpfully and concisely."
+        )
+    )
+    response = llm.invoke([system_prompt] + state["messages"])
+    trace(state, "info_lookup_llm")
+    return {"messages": [response], "current_flow": None}
 
 def escalation_node(state: AgentState) -> AgentState:
     msg = AIMessage(
@@ -310,15 +294,20 @@ def fallback_node(state: AgentState) -> AgentState:
 # Builds the LangGraph
 builder = StateGraph(AgentState)
 
+# Tool nodes — one per agentic loop
+billing_tool_node = ToolNode([fetch_invoice])            
+tech_tool_node = ToolNode([search_knowledge_base])        
+
 # Nodes
 builder.add_node("router", router_node)
-builder.add_node("technical_support", call_llm)
+builder.add_node("technical_support", tech_support_node)
 builder.add_node("billing", billing_llm_node)
 builder.add_node("info_lookup", info_lookup_node)
 builder.add_node("escalation", escalation_node)
 builder.add_node("chitchat", chitchat_node)
 builder.add_node("fallback", fallback_node)
-builder.add_node("tools", tool_node)
+builder.add_node("billing_tools", billing_tool_node)
+builder.add_node("tech_tools", tech_tool_node)
 
 
 
@@ -340,18 +329,26 @@ builder.add_conditional_edges(
     },
 )
 
-#Agentic tools flow for billing
+# Billing agentic loop
 builder.add_conditional_edges(
     "billing",
     billing_should_use_tools,
-    {"tools": "tools", "done": END},
+    {"tools": "billing_tools", "done": END},
 )
-builder.add_edge("tools", "billing")
+builder.add_edge("billing_tools", "billing")
+
+# Technical support agentic loop
+builder.add_conditional_edges(
+    "technical_support",
+    tech_should_use_tools,
+    {"tools": "tech_tools", "done": END},
+)
+builder.add_edge("tech_tools", "technical_support")
 
 
 
 # All other specialist nodes end normally
-builder.add_edge("technical_support", END)
+
 builder.add_edge("info_lookup", END)
 builder.add_edge("chitchat", END)
 builder.add_edge("fallback", END)
