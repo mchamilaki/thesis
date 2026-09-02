@@ -1,0 +1,378 @@
+{
+  "n": 8,
+  "judges": {
+    "openai": "gpt-5.6",
+    "google": "gemini-3.7-flash"
+  },
+  "judge_vs_gold": {
+    "openai": {
+      "correct": 8,
+      "accuracy": 1.0,
+      "ci95": [
+        0.6755843804891231,
+        1.0
+      ],
+      "cohen_kappa": 1.0
+    },
+    "google": {
+      "correct": 8,
+      "accuracy": 1.0,
+      "ci95": [
+        0.6755843804891231,
+        1.0
+      ],
+      "cohen_kappa": 1.0
+    }
+  },
+  "fleiss_kappa": 1.0,
+  "unanimous": {
+    "count": 8,
+    "rate": 1.0
+  },
+  "pairwise_kappa": {
+    "openai|google": 1.0
+  },
+  "per_class_panel": {
+    "billing": {
+      "n": 1,
+      "unanimous_rate": 1.0,
+      "all_match_gold_rate": 1.0
+    },
+    "technical_support": {
+      "n": 2,
+      "unanimous_rate": 1.0,
+      "all_match_gold_rate": 1.0
+    },
+    "info_lookup": {
+      "n": 2,
+      "unanimous_rate": 1.0,
+      "all_match_gold_rate": 1.0
+    },
+    "escalation": {
+      "n": 1,
+      "unanimous_rate": 1.0,
+      "all_match_gold_rate": 1.0
+    },
+    "chitchat": {
+      "n": 1,
+      "unanimous_rate": 1.0,
+      "all_match_gold_rate": 1.0
+    },
+    "fallback": {
+      "n": 1,
+      "unanimous_rate": 1.0,
+      "all_match_gold_rate": 1.0
+    }
+  },
+  "router": {
+    "accuracy": 1.0,
+    "ci95": [
+      0.6755843804891231,
+      1.0
+    ],
+    "macro_f1": 1.0,
+    "per_class": {
+      "billing": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      },
+      "technical_support": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2
+      },
+      "info_lookup": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2
+      },
+      "escalation": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      },
+      "chitchat": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      },
+      "fallback": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      }
+    }
+  },
+  "router_vs_judge": {
+    "openai": {
+      "agreement": 1.0,
+      "kappa": 1.0
+    },
+    "google": {
+      "agreement": 1.0,
+      "kappa": 1.0
+    }
+  },
+  "split_items": [],
+  "records": [
+    {
+      "message": "is there a late fee on my account",
+      "gold": "billing",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking about a potential late-payment charge on their account."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is inquiring about potential charges or fees applied to their account."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "what's included in the premium subscription",
+      "gold": "info_lookup",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for details about what is included in a subscription package."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for details about the features and package contents of a specific plan tier."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "tell me about your broadband speeds",
+      "gold": "info_lookup",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for information about available broadband service speeds."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for general information regarding available broadband speeds, which falls under inquiring about plan and service offerings."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "nothing loads when I open my browser",
+      "gold": "technical_support",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a browser connectivity or service-loading problem that requires troubleshooting."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is experiencing an internet connectivity issue where web pages are failing to load in their browser."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "pages take forever to open",
+      "gold": "technical_support",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting slow internet or connectivity performance when loading web pages."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting slow browsing speeds, which is a network connectivity and performance issue handled by technical support."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "connect me with a supervisor immediately",
+      "gold": "escalation",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly requests immediate connection to a supervisor."
+        },
+        "google": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly demands to speak with a human supervisor immediately."
+        }
+      },
+      "router": "escalation",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "...",
+      "gold": "fallback",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The message contains only an ellipsis and provides no discernible request or topic."
+        },
+        "google": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The user message contains only punctuation with no discernible intent or clear meaning."
+        }
+      },
+      "router": "fallback",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "my bill seems too high",
+      "gold": "billing",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is concerned that their bill amount is higher than expected."
+        },
+        "google": {
+          "intent": null,
+          "confidence": null,
+          "reasoning": "ERROR: Error calling model 'gemini-3.7-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.7-flash\\nPlease retry in 46.319219555s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.7-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '46s'}]}}"
+        }
+      },
+      "router": "billing",
+      "unanimous": false,
+      "matches_gold_all": false
+    },
+    {
+      "message": "what's the weather like",
+      "gold": "fallback",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "A weather query is outside the telecom customer-service scope."
+        },
+        "google": {
+          "intent": null,
+          "confidence": null,
+          "reasoning": "ERROR: Error calling model 'gemini-3.7-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.7-flash\\nPlease retry in 10.694632455s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.7-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '10s'}]}}"
+        }
+      },
+      "router": "fallback",
+      "unanimous": false,
+      "matches_gold_all": false
+    },
+    {
+      "message": "that's awesome, appreciate it",
+      "gold": "chitchat",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is expressing appreciation and positive small talk."
+        },
+        "google": {
+          "intent": null,
+          "confidence": null,
+          "reasoning": "ERROR: Error calling model 'gemini-3.7-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.7-flash\\nPlease retry in 32.541504638s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.7-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '32s'}]}}"
+        }
+      },
+      "router": "chitchat",
+      "unanimous": false,
+      "matches_gold_all": false
+    },
+    {
+      "message": "how are you today",
+      "gold": "chitchat",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is making casual small talk by asking how the assistant is doing."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user's message is standard polite small talk and greeting with no telecom-related request."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "get me a real agent now",
+      "gold": "escalation",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly requests to speak with a human agent."
+        },
+        "google": {
+          "intent": null,
+          "confidence": null,
+          "reasoning": "ERROR: Error calling model 'gemini-3.7-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.7-flash\\nPlease retry in 28.083163893s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.7-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '28s'}]}}"
+        }
+      },
+      "router": "escalation",
+      "unanimous": false,
+      "matches_gold_all": false
+    }
+  ]
+}

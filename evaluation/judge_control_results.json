@@ -1,0 +1,755 @@
+{
+  "gold": {
+    "n": 30,
+    "approved": 30,
+    "approval_rate": 1.0,
+    "ci95": [
+      0.886482908609522,
+      1.0
+    ],
+    "records": [
+      {
+        "message": "my bill seems too high",
+        "gold": "billing",
+        "shown_prediction": "billing",
+        "reasonable": true,
+        "judge_ideal": "billing",
+        "why": "The message clearly pertains to a billing issue, as the user is concerned about the amount of their bill."
+      },
+      {
+        "message": "are you a real person or a robot",
+        "gold": "unknown",
+        "shown_prediction": "unknown",
+        "reasonable": true,
+        "judge_ideal": "chitchat",
+        "why": "The message is a common question about the nature of the chatbot, which fits under chitchat, but the router's fallback to unknown is also reasonable given the ambiguity."
+      },
+      {
+        "message": "what would it cost to upgrade my speed",
+        "gold": "info_lookup",
+        "shown_prediction": "info_lookup",
+        "reasonable": true,
+        "judge_ideal": "info_lookup",
+        "why": "The user's message is asking about the cost of upgrading their internet speed, which falls under the category of looking up information about plans or prices."
+      },
+      {
+        "message": "it's 456",
+        "gold": "billing",
+        "shown_prediction": "billing",
+        "reasonable": true,
+        "judge_ideal": "billing",
+        "why": "The user is providing their account ID in response to a billing-related query, so the billing intent is appropriate."
+      },
+      {
+        "message": "what's the weather like",
+        "gold": "unknown",
+        "shown_prediction": "unknown",
+        "reasonable": true,
+        "judge_ideal": "fallback",
+        "why": "The message is out-of-scope for a telecom service chatbot, making the 'unknown' or 'fallback' label appropriate."
+      },
+      {
+        "message": "let me talk to a representative",
+        "gold": "escalation",
+        "shown_prediction": "escalation",
+        "reasonable": true,
+        "judge_ideal": "escalation",
+        "why": "The user explicitly requests to speak with a representative, which clearly falls under the escalation intent."
+      },
+      {
+        "message": "you're the best",
+        "gold": "chitchat",
+        "shown_prediction": "chitchat",
+        "reasonable": true,
+        "judge_ideal": "chitchat",
+        "why": "The message is a form of small talk or compliment, which fits the chitchat intent."
+      },
+      {
+        "message": "tell me about your broadband speeds",
+        "gold": "info_lookup",
+        "shown_prediction": "info_lookup",
+        "reasonable": true,
+        "judge_ideal": "info_lookup",
+        "why": "The user is asking for information about broadband speeds, which falls under the info_lookup intent."
+      },
+      {
+        "message": "I want to make an official complaint about your service",
+        "gold": "escalation",
+        "shown_prediction": "escalation",
+        "reasonable": true,
+        "judge_ideal": "escalation",
+        "why": "The user's message clearly indicates a desire to file a complaint, which aligns with the escalation intent."
+      },
+      {
+        "message": "can you help me with my homework",
+        "gold": "unknown",
+        "shown_prediction": "unknown",
+        "reasonable": true,
+        "judge_ideal": "fallback",
+        "why": "The message is out-of-scope for a telecom customer-service chatbot, making the fallback intent reasonable."
+      },
+      {
+        "message": "get me a real agent now",
+        "gold": "escalation",
+        "shown_prediction": "escalation",
+        "reasonable": true,
+        "judge_ideal": "escalation",
+        "why": "The user's request for a 'real agent' clearly indicates a desire to escalate the issue to a human representative."
+      },
+      {
+        "message": "my router keeps restarting",
+        "gold": "technical_support",
+        "shown_prediction": "technical_support",
+        "reasonable": true,
+        "judge_ideal": "technical_support",
+        "why": "The message clearly describes a technical issue with the router, making the technical_support intent appropriate."
+      },
+      {
+        "message": "connect me with a supervisor immediately",
+        "gold": "escalation",
+        "shown_prediction": "escalation",
+        "reasonable": true,
+        "judge_ideal": "escalation",
+        "why": "The user's request to speak with a supervisor clearly indicates a need for escalation, matching both the gold label and the router's prediction."
+      },
+      {
+        "message": "pages take forever to open",
+        "gold": "technical_support",
+        "shown_prediction": "technical_support",
+        "reasonable": true,
+        "judge_ideal": "technical_support",
+        "why": "The message clearly indicates a technical issue with slow page loading, which falls under technical support."
+      },
+      {
+        "message": "I want to speak to a human",
+        "gold": "escalation",
+        "shown_prediction": "escalation",
+        "reasonable": true,
+        "judge_ideal": "escalation",
+        "why": "The user's request to speak to a human clearly indicates a need for escalation, matching both the gold label and the router's prediction."
+      },
+      {
+        "message": "since yesterday, and yes I restarted it",
+        "gold": "technical_support",
+        "shown_prediction": "technical_support",
+        "reasonable": true,
+        "judge_ideal": "technical_support",
+        "why": "The user's message continues the discussion about an internet connectivity issue, which falls under technical support."
+      },
+      {
+        "message": "what are your roaming rates",
+        "gold": "info_lookup",
+        "shown_prediction": "info_lookup",
+        "reasonable": true,
+        "judge_ideal": "info_lookup",
+        "why": "The user is asking for information about roaming rates, which falls under the info_lookup intent."
+      },
+      {
+        "message": "can I get an itemized breakdown of my charges",
+        "gold": "billing",
+        "shown_prediction": "billing",
+        "reasonable": true,
+        "judge_ideal": "billing",
+        "why": "The user's request for an itemized breakdown of charges clearly pertains to billing, making the router's prediction reasonable."
+      },
+      {
+        "message": "I keep getting kicked offline during calls",
+        "gold": "technical_support",
+        "shown_prediction": "technical_support",
+        "reasonable": true,
+        "judge_ideal": "technical_support",
+        "why": "The message clearly describes a connectivity issue, which falls under technical support."
+      },
+      {
+        "message": "when is my payment due",
+        "gold": "billing",
+        "shown_prediction": "billing",
+        "reasonable": true,
+        "judge_ideal": "billing",
+        "why": "The message clearly pertains to a billing inquiry about payment due dates, matching the billing intent."
+      },
+      {
+        "message": "what's included in the premium subscription",
+        "gold": "info_lookup",
+        "shown_prediction": "info_lookup",
+        "reasonable": true,
+        "judge_ideal": "info_lookup",
+        "why": "The user is inquiring about the details of a subscription plan, which falls under the info_lookup intent."
+      },
+      {
+        "message": "hey what's up",
+        "gold": "chitchat",
+        "shown_prediction": "chitchat",
+        "reasonable": true,
+        "judge_ideal": "chitchat",
+        "why": "The message is a casual greeting, which fits the chitchat intent."
+      },
+      {
+        "message": "nothing loads when I open my browser",
+        "gold": "technical_support",
+        "shown_prediction": "technical_support",
+        "reasonable": true,
+        "judge_ideal": "technical_support",
+        "why": "The message clearly describes a technical issue with connectivity or device functionality, which falls under technical support."
+      },
+      {
+        "message": "yes tell me about the fastest",
+        "gold": "info_lookup",
+        "shown_prediction": "info_lookup",
+        "reasonable": true,
+        "judge_ideal": "info_lookup",
+        "why": "The user is asking for details about a specific plan, which falls under the info_lookup intent."
+      },
+      {
+        "message": "is there a late fee on my account",
+        "gold": "billing",
+        "shown_prediction": "billing",
+        "reasonable": true,
+        "judge_ideal": "billing",
+        "why": "The user's message is clearly about a potential late fee, which falls under billing inquiries."
+      },
+      {
+        "message": "can you write me a poem",
+        "gold": "unknown",
+        "shown_prediction": "unknown",
+        "reasonable": true,
+        "judge_ideal": "fallback",
+        "why": "The request for a poem is out-of-scope for a telecom customer-service chatbot, making the 'unknown' or 'fallback' label appropriate."
+      },
+      {
+        "message": "...",
+        "gold": "unknown",
+        "shown_prediction": "unknown",
+        "reasonable": true,
+        "judge_ideal": "fallback",
+        "why": "The message is unclear and does not provide any information to determine a specific intent, making 'unknown' a reasonable prediction."
+      },
+      {
+        "message": "that's awesome, appreciate it",
+        "gold": "chitchat",
+        "shown_prediction": "chitchat",
+        "reasonable": true,
+        "judge_ideal": "chitchat",
+        "why": "The message is a form of small talk expressing gratitude, which fits the chitchat intent."
+      },
+      {
+        "message": "how are you today",
+        "gold": "chitchat",
+        "shown_prediction": "chitchat",
+        "reasonable": true,
+        "judge_ideal": "chitchat",
+        "why": "The message is a typical example of small talk, which fits the chitchat intent."
+      },
+      {
+        "message": "have a nice day",
+        "gold": "chitchat",
+        "shown_prediction": "chitchat",
+        "reasonable": true,
+        "judge_ideal": "chitchat",
+        "why": "The message is a polite expression, fitting well within the chitchat category."
+      }
+    ]
+  },
+  "absurd": {
+    "n": 30,
+    "approved": 0,
+    "approval_rate": 0.0,
+    "ci95": [
+      -1.2302421700937121e-17,
+      0.11351709139047801
+    ],
+    "records": [
+      {
+        "message": "my bill seems too high",
+        "gold": "billing",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "billing",
+        "why": "The message clearly pertains to a billing issue, as the user is expressing concern about their bill amount."
+      },
+      {
+        "message": "are you a real person or a robot",
+        "gold": "unknown",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "chitchat",
+        "why": "The user's message is a common question about the nature of the chatbot, which fits better under chitchat rather than escalation."
+      },
+      {
+        "message": "what would it cost to upgrade my speed",
+        "gold": "info_lookup",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "info_lookup",
+        "why": "The user is asking about the cost of upgrading their internet speed, which falls under info_lookup as it pertains to plans and prices, not escalation."
+      },
+      {
+        "message": "it's 456",
+        "gold": "billing",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "billing",
+        "why": "The user is providing their account ID in response to a billing inquiry, which is directly related to the billing intent, not chitchat."
+      },
+      {
+        "message": "what's the weather like",
+        "gold": "unknown",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "fallback",
+        "why": "The message is out-of-scope for a telecom service chatbot, so 'fallback' is the most appropriate intent."
+      },
+      {
+        "message": "let me talk to a representative",
+        "gold": "escalation",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "escalation",
+        "why": "The user is explicitly requesting to speak with a human representative, which clearly falls under the escalation intent, not chitchat."
+      },
+      {
+        "message": "you're the best",
+        "gold": "chitchat",
+        "shown_prediction": "billing",
+        "reasonable": false,
+        "judge_ideal": "chitchat",
+        "why": "The message is a compliment and fits the chitchat intent, not billing."
+      },
+      {
+        "message": "tell me about your broadband speeds",
+        "gold": "info_lookup",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "info_lookup",
+        "why": "The user is asking for information about broadband speeds, which falls under the info_lookup intent, not escalation."
+      },
+      {
+        "message": "I want to make an official complaint about your service",
+        "gold": "escalation",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "escalation",
+        "why": "The user explicitly states they want to make a complaint, which clearly falls under the escalation intent, not chitchat."
+      },
+      {
+        "message": "can you help me with my homework",
+        "gold": "unknown",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "fallback",
+        "why": "The message is out-of-scope for a telecom service chatbot, making 'fallback' the most appropriate intent."
+      },
+      {
+        "message": "get me a real agent now",
+        "gold": "escalation",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "escalation",
+        "why": "The user is clearly requesting to speak with a human agent, which falls under the escalation intent, not chitchat."
+      },
+      {
+        "message": "my router keeps restarting",
+        "gold": "technical_support",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "technical_support",
+        "why": "The message clearly describes a technical issue with the router, which falls under technical_support, not chitchat."
+      },
+      {
+        "message": "connect me with a supervisor immediately",
+        "gold": "escalation",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "escalation",
+        "why": "The user is requesting to speak with a supervisor, which clearly indicates an escalation intent, not chitchat."
+      },
+      {
+        "message": "pages take forever to open",
+        "gold": "technical_support",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "technical_support",
+        "why": "The message indicates a problem with connectivity or speed, which falls under technical support, not chitchat."
+      },
+      {
+        "message": "I want to speak to a human",
+        "gold": "escalation",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "escalation",
+        "why": "The user explicitly requests to speak to a human, which clearly indicates an escalation intent, not chitchat."
+      },
+      {
+        "message": "since yesterday, and yes I restarted it",
+        "gold": "technical_support",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "technical_support",
+        "why": "The user's message is a continuation of a technical support issue regarding internet connectivity, not chitchat."
+      },
+      {
+        "message": "what are your roaming rates",
+        "gold": "info_lookup",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "info_lookup",
+        "why": "The user is asking for information about roaming rates, which clearly falls under the info_lookup intent, not escalation."
+      },
+      {
+        "message": "can I get an itemized breakdown of my charges",
+        "gold": "billing",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "billing",
+        "why": "The user is asking for a detailed breakdown of charges, which clearly falls under the billing intent, not chitchat."
+      },
+      {
+        "message": "I keep getting kicked offline during calls",
+        "gold": "technical_support",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "technical_support",
+        "why": "The message describes a connectivity issue, which clearly falls under technical support, not chitchat."
+      },
+      {
+        "message": "when is my payment due",
+        "gold": "billing",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "billing",
+        "why": "The user is asking about the due date for a payment, which clearly falls under the billing intent, not chitchat."
+      },
+      {
+        "message": "what's included in the premium subscription",
+        "gold": "info_lookup",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "info_lookup",
+        "why": "The user is asking for details about a subscription plan, which falls under info_lookup, not escalation."
+      },
+      {
+        "message": "hey what's up",
+        "gold": "chitchat",
+        "shown_prediction": "billing",
+        "reasonable": false,
+        "judge_ideal": "chitchat",
+        "why": "The message is a casual greeting, which clearly falls under chitchat, not billing."
+      },
+      {
+        "message": "nothing loads when I open my browser",
+        "gold": "technical_support",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "technical_support",
+        "why": "The message clearly describes a technical issue with loading content in a browser, which falls under technical support, not chitchat."
+      },
+      {
+        "message": "yes tell me about the fastest",
+        "gold": "info_lookup",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "info_lookup",
+        "why": "The user is asking for details about the fastest fiber plan, which is clearly a request for information about available plans, fitting the info_lookup intent."
+      },
+      {
+        "message": "is there a late fee on my account",
+        "gold": "billing",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "billing",
+        "why": "The user's message is clearly about billing, specifically inquiring about a late fee, which is not related to chitchat."
+      },
+      {
+        "message": "can you write me a poem",
+        "gold": "unknown",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "fallback",
+        "why": "The request for a poem is out-of-scope for a telecom service chatbot, making 'fallback' the most appropriate intent."
+      },
+      {
+        "message": "...",
+        "gold": "unknown",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "fallback",
+        "why": "The message is unclear and lacks context, making it a fallback case rather than an escalation."
+      },
+      {
+        "message": "that's awesome, appreciate it",
+        "gold": "chitchat",
+        "shown_prediction": "billing",
+        "reasonable": false,
+        "judge_ideal": "chitchat",
+        "why": "The message is expressing gratitude and appreciation, which aligns with chitchat rather than billing."
+      },
+      {
+        "message": "how are you today",
+        "gold": "chitchat",
+        "shown_prediction": "billing",
+        "reasonable": false,
+        "judge_ideal": "chitchat",
+        "why": "The message is a casual greeting, which clearly falls under chitchat, not billing."
+      },
+      {
+        "message": "have a nice day",
+        "gold": "chitchat",
+        "shown_prediction": "billing",
+        "reasonable": false,
+        "judge_ideal": "chitchat",
+        "why": "The message is a polite farewell, which clearly falls under chitchat, not billing."
+      }
+    ]
+  },
+  "absurd_nogold": {
+    "n": 30,
+    "approved": 0,
+    "approval_rate": 0.0,
+    "ci95": [
+      -1.2302421700937121e-17,
+      0.11351709139047801
+    ],
+    "records": [
+      {
+        "message": "my bill seems too high",
+        "gold": "billing",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "billing",
+        "why": "The message is clearly about a billing issue, as the user is concerned about the amount of their bill."
+      },
+      {
+        "message": "are you a real person or a robot",
+        "gold": "unknown",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "chitchat",
+        "why": "The user's message is a common question about the nature of the chatbot, which fits better under chitchat rather than escalation."
+      },
+      {
+        "message": "what would it cost to upgrade my speed",
+        "gold": "info_lookup",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "info_lookup",
+        "why": "The user is asking about the cost of upgrading their internet speed, which falls under info_lookup as it pertains to plans and prices, not escalation."
+      },
+      {
+        "message": "it's 456",
+        "gold": "billing",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "billing",
+        "why": "The user is providing their account ID in response to a billing query, so the intent should be 'billing' rather than 'chitchat.'"
+      },
+      {
+        "message": "what's the weather like",
+        "gold": "unknown",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "fallback",
+        "why": "The message is out-of-scope for a telecom service chatbot, so 'fallback' is the most appropriate intent."
+      },
+      {
+        "message": "let me talk to a representative",
+        "gold": "escalation",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "escalation",
+        "why": "The user is explicitly requesting to speak with a human representative, which clearly falls under the 'escalation' intent, not 'chitchat'."
+      },
+      {
+        "message": "you're the best",
+        "gold": "chitchat",
+        "shown_prediction": "billing",
+        "reasonable": false,
+        "judge_ideal": "chitchat",
+        "why": "The message is a compliment and fits the chitchat intent, not billing."
+      },
+      {
+        "message": "tell me about your broadband speeds",
+        "gold": "info_lookup",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "info_lookup",
+        "why": "The user is asking for information about broadband speeds, which falls under the info_lookup intent, not escalation."
+      },
+      {
+        "message": "I want to make an official complaint about your service",
+        "gold": "escalation",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "escalation",
+        "why": "The message clearly indicates a desire to file a complaint, which falls under the escalation intent, not chitchat."
+      },
+      {
+        "message": "can you help me with my homework",
+        "gold": "unknown",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "fallback",
+        "why": "The message is out-of-scope for a telecom service chatbot, making 'fallback' the most appropriate intent."
+      },
+      {
+        "message": "get me a real agent now",
+        "gold": "escalation",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "escalation",
+        "why": "The user is explicitly requesting to speak with a human agent, which falls under the escalation intent, not chitchat."
+      },
+      {
+        "message": "my router keeps restarting",
+        "gold": "technical_support",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "technical_support",
+        "why": "The message indicates a technical issue with the router, which aligns with the technical_support intent, not chitchat."
+      },
+      {
+        "message": "connect me with a supervisor immediately",
+        "gold": "escalation",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "escalation",
+        "why": "The user is requesting to speak with a supervisor, which is a clear request for escalation, not chitchat."
+      },
+      {
+        "message": "pages take forever to open",
+        "gold": "technical_support",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "technical_support",
+        "why": "The message indicates a problem with connectivity or speed, which falls under technical support, not chitchat."
+      },
+      {
+        "message": "I want to speak to a human",
+        "gold": "escalation",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "escalation",
+        "why": "The message is a clear request for escalation to a human agent, not chitchat."
+      },
+      {
+        "message": "since yesterday, and yes I restarted it",
+        "gold": "technical_support",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "technical_support",
+        "why": "The user is providing information relevant to a technical support issue, not engaging in small talk."
+      },
+      {
+        "message": "what are your roaming rates",
+        "gold": "info_lookup",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "info_lookup",
+        "why": "The user is asking for information about roaming rates, which falls under the 'info_lookup' intent, not 'escalation'."
+      },
+      {
+        "message": "can I get an itemized breakdown of my charges",
+        "gold": "billing",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "billing",
+        "why": "The user is asking for a detailed breakdown of charges, which clearly falls under the billing intent, not chitchat."
+      },
+      {
+        "message": "I keep getting kicked offline during calls",
+        "gold": "technical_support",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "technical_support",
+        "why": "The message describes a connectivity issue, which falls under technical support, not chitchat."
+      },
+      {
+        "message": "when is my payment due",
+        "gold": "billing",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "billing",
+        "why": "The message is clearly asking about a billing-related issue, specifically the due date of a payment, which should be classified under the 'billing' intent."
+      },
+      {
+        "message": "what's included in the premium subscription",
+        "gold": "info_lookup",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "info_lookup",
+        "why": "The user is asking for details about a subscription plan, which falls under info_lookup, not escalation."
+      },
+      {
+        "message": "hey what's up",
+        "gold": "chitchat",
+        "shown_prediction": "billing",
+        "reasonable": false,
+        "judge_ideal": "chitchat",
+        "why": "The message is a casual greeting, which aligns with the chitchat intent, not billing."
+      },
+      {
+        "message": "nothing loads when I open my browser",
+        "gold": "technical_support",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "technical_support",
+        "why": "The message describes a technical issue with loading content in a browser, which falls under technical support, not chitchat."
+      },
+      {
+        "message": "yes tell me about the fastest",
+        "gold": "info_lookup",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "info_lookup",
+        "why": "The user is asking for details about the fastest fiber plan, which is a request for information about plans, making 'info_lookup' the most appropriate intent."
+      },
+      {
+        "message": "is there a late fee on my account",
+        "gold": "billing",
+        "shown_prediction": "chitchat",
+        "reasonable": false,
+        "judge_ideal": "billing",
+        "why": "The message is clearly about billing as it inquires about a late fee, which is related to payments and charges."
+      },
+      {
+        "message": "can you write me a poem",
+        "gold": "unknown",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "chitchat",
+        "why": "The user's request for a poem is more aligned with chitchat as it is a playful or casual interaction, not a request for escalation to a human or a complaint."
+      },
+      {
+        "message": "...",
+        "gold": "unknown",
+        "shown_prediction": "escalation",
+        "reasonable": false,
+        "judge_ideal": "fallback",
+        "why": "The message is gibberish or unclear, making 'fallback' the most appropriate intent."
+      },
+      {
+        "message": "that's awesome, appreciate it",
+        "gold": "chitchat",
+        "shown_prediction": "billing",
+        "reasonable": false,
+        "judge_ideal": "chitchat",
+        "why": "The message is expressing gratitude and appreciation, which aligns with chitchat rather than billing."
+      },
+      {
+        "message": "how are you today",
+        "gold": "chitchat",
+        "shown_prediction": "billing",
+        "reasonable": false,
+        "judge_ideal": "chitchat",
+        "why": "The message is a casual greeting, which aligns with the chitchat intent, not billing."
+      },
+      {
+        "message": "have a nice day",
+        "gold": "chitchat",
+        "shown_prediction": "billing",
+        "reasonable": false,
+        "judge_ideal": "chitchat",
+        "why": "The message is a polite farewell, which fits the chitchat intent, not billing."
+      }
+    ]
+  }
+}
