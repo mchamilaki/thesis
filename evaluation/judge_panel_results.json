@@ -1,127 +1,518 @@
 {
-  "n": 8,
+  "n": 96,
   "judges": {
     "openai": "gpt-5.6",
+    "anthropic": "claude-sonnet-5",
     "google": "gemini-3.7-flash"
   },
   "judge_vs_gold": {
     "openai": {
-      "correct": 8,
-      "accuracy": 1.0,
+      "correct": 91,
+      "accuracy": 0.9479166666666666,
       "ci95": [
-        0.6755843804891231,
-        1.0
+        0.8838136706327892,
+        0.9775507305787299
       ],
-      "cohen_kappa": 1.0
+      "cohen_kappa": 0.9374511336982017
+    },
+    "anthropic": {
+      "correct": 90,
+      "accuracy": 0.9375,
+      "ci95": [
+        0.8702889506383905,
+        0.9710437203123956
+      ],
+      "cohen_kappa": 0.924941360437842
     },
     "google": {
-      "correct": 8,
-      "accuracy": 1.0,
+      "correct": 91,
+      "accuracy": 0.9479166666666666,
       "ci95": [
-        0.6755843804891231,
-        1.0
+        0.8838136706327892,
+        0.9775507305787299
       ],
-      "cohen_kappa": 1.0
+      "cohen_kappa": 0.9374511336982017
     }
   },
-  "fleiss_kappa": 1.0,
+  "fleiss_kappa": 0.991597864457216,
   "unanimous": {
-    "count": 8,
-    "rate": 1.0
+    "count": 95,
+    "rate": 0.9895833333333334
   },
   "pairwise_kappa": {
-    "openai|google": 1.0
+    "openai|anthropic": 0.9873916469661151,
+    "openai|google": 1.0,
+    "anthropic|google": 0.9873916469661151
   },
   "per_class_panel": {
     "billing": {
-      "n": 1,
+      "n": 17,
       "unanimous_rate": 1.0,
       "all_match_gold_rate": 1.0
     },
     "technical_support": {
-      "n": 2,
+      "n": 17,
       "unanimous_rate": 1.0,
       "all_match_gold_rate": 1.0
     },
     "info_lookup": {
-      "n": 2,
+      "n": 17,
       "unanimous_rate": 1.0,
       "all_match_gold_rate": 1.0
     },
     "escalation": {
-      "n": 1,
+      "n": 15,
       "unanimous_rate": 1.0,
       "all_match_gold_rate": 1.0
     },
     "chitchat": {
-      "n": 1,
+      "n": 15,
       "unanimous_rate": 1.0,
       "all_match_gold_rate": 1.0
     },
     "fallback": {
-      "n": 1,
-      "unanimous_rate": 1.0,
-      "all_match_gold_rate": 1.0
+      "n": 15,
+      "unanimous_rate": 0.9333333333333333,
+      "all_match_gold_rate": 0.6
     }
   },
   "router": {
-    "accuracy": 1.0,
+    "accuracy": 0.9166666666666666,
     "ci95": [
-      0.6755843804891231,
-      1.0
+      0.8440993218899774,
+      0.9571698885393427
     ],
-    "macro_f1": 1.0,
+    "macro_f1": 0.9031005031005032,
     "per_class": {
       "billing": {
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
-        "support": 1
+        "support": 17
       },
       "technical_support": {
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
-        "support": 2
+        "support": 17
       },
       "info_lookup": {
-        "precision": 1.0,
+        "precision": 0.9444444444444444,
         "recall": 1.0,
-        "f1": 1.0,
-        "support": 2
+        "f1": 0.9714285714285714,
+        "support": 17
       },
       "escalation": {
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
-        "support": 1
+        "support": 15
       },
       "chitchat": {
-        "precision": 1.0,
+        "precision": 0.6818181818181818,
         "recall": 1.0,
-        "f1": 1.0,
-        "support": 1
+        "f1": 0.8108108108108109,
+        "support": 15
       },
       "fallback": {
         "precision": 1.0,
-        "recall": 1.0,
-        "f1": 1.0,
-        "support": 1
+        "recall": 0.4666666666666667,
+        "f1": 0.6363636363636364,
+        "support": 15
       }
     }
   },
   "router_vs_judge": {
     "openai": {
-      "agreement": 1.0,
-      "kappa": 1.0
+      "agreement": 0.96875,
+      "kappa": 0.9620902988021588
+    },
+    "anthropic": {
+      "agreement": 0.9791666666666666,
+      "kappa": 0.9746768662621998
     },
     "google": {
-      "agreement": 1.0,
-      "kappa": 1.0
+      "agreement": 0.96875,
+      "kappa": 0.9620902988021588
     }
   },
-  "split_items": [],
+  "split_items": [
+    {
+      "message": "can you write me a poem",
+      "gold": "fallback",
+      "router": "chitchat",
+      "labels": {
+        "openai": "fallback",
+        "anthropic": "chitchat",
+        "google": "fallback"
+      }
+    }
+  ],
   "records": [
+    {
+      "message": "I want to check my invoice",
+      "gold": "billing",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user explicitly wants to view or check an invoice, which is a billing-related request."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user explicitly wants to check their invoice, which relates to billing."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking to view or check their invoice, which directly pertains to billing and payment records."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "why was I charged twice this month",
+      "gold": "billing",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking about a duplicate charge on their account this month."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is questioning a duplicate charge on their account, which pertains to billing."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is inquiring about duplicate charges on their account, which directly relates to billing and payments."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "my bill seems too high",
+      "gold": "billing",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is concerned about the amount charged on their bill."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is questioning the amount charged on their invoice, which directly pertains to billing."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is inquiring about unexpected or high charges on their invoice, which directly pertains to billing."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "when is my payment due",
+      "gold": "billing",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking about the due date for a payment, which is a billing matter."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking about their payment due date, which relates to invoices/payments."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking for the due date of their payment, which directly relates to billing and invoices."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "can you show me my latest statement",
+      "gold": "billing",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking to view their latest billing statement."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking to view their latest billing statement, which relates to invoices."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is requesting to view their latest billing statement, which directly relates to invoices and account charges."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "how much do I owe",
+      "gold": "billing",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking about their outstanding account balance."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking about their account balance/amount due, which relates to billing."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking about their outstanding balance, which directly relates to billing and payments."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "I think you took money from my account twice",
+      "gold": "billing",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is reporting a suspected duplicate charge or payment withdrawal."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is reporting a duplicate charge/payment issue, which relates directly to billing."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is inquiring about a potential duplicate charge on their account, which directly relates to billing and payments."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "what's my outstanding balance",
+      "gold": "billing",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking about the unpaid balance on their account."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is directly asking about their account balance, which is a billing-related query."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking directly about their account balance, which is explicitly classified under billing."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "did my last payment go through",
+      "gold": "billing",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking about the status of a recent payment."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking about the status of a payment, which relates to billing."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking about the status of a recent payment, which directly relates to billing and payment records."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "I need a copy of last month's receipt",
+      "gold": "billing",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is requesting a past payment receipt, which is a billing-related document."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is requesting a receipt, which pertains to invoices/payments and falls under billing."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "Requesting a receipt for a past payment directly pertains to invoices and payment documentation."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "can I get an itemized breakdown of my charges",
+      "gold": "billing",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking for a detailed breakdown of charges on their account."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking for a detailed breakdown of charges on their account, which relates to billing information."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking for an itemized breakdown of their charges, which directly relates to invoice and billing details."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "something looks wrong with what I'm being billed",
+      "gold": "billing",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is reporting a possible problem with the charges on their bill."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user explicitly refers to an issue with their bill, indicating a billing-related concern."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is expressing a concern regarding an inaccuracy or issue with their billed amount."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "I was overcharged for international calls",
+      "gold": "billing",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is disputing charges for international calls, which is a billing issue."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is disputing a charge on their account, which directly relates to billing issues."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is disputing an incorrect charge on their account, which directly pertains to billing and charges."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "remind me what my monthly total comes to",
+      "gold": "billing",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking for their monthly amount due or recurring bill total."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking about their monthly charge total, which relates to invoices/balances."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking to check their specific recurring bill amount or account balance, which falls under the billing category."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
     {
       "message": "is there a late fee on my account",
       "gold": "billing",
@@ -131,12 +522,17 @@
         "openai": {
           "intent": "billing",
           "confidence": "high",
-          "reasoning": "The user is asking about a potential late-payment charge on their account."
+          "reasoning": "The user is asking about a potential fee charged to their account."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is asking about a late fee on their account, which pertains to charges/billing."
         },
         "google": {
           "intent": "billing",
           "confidence": "high",
-          "reasoning": "The user is inquiring about potential charges or fees applied to their account."
+          "reasoning": "The user is inquiring about a specific charge or fee on their account balance, which falls directly under billing."
         }
       },
       "router": "billing",
@@ -144,20 +540,493 @@
       "matches_gold_all": true
     },
     {
-      "message": "what's included in the premium subscription",
-      "gold": "info_lookup",
+      "message": "my internet is not working",
+      "gold": "technical_support",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user reports an internet connectivity problem."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a connectivity issue with their internet service, which is a technical support matter."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a connectivity problem with their internet service, which directly falls under technical support."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "the wifi keeps dropping",
+      "gold": "technical_support",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting an intermittent Wi-Fi connectivity problem."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a connectivity issue with their wifi, which falls under technical support."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting an intermittent Wi-Fi connection issue, which is a clear technical connectivity problem."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "I can't connect to the network",
+      "gold": "technical_support",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a network connectivity problem."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a connectivity issue, which falls under technical support."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is experiencing a network connectivity issue, which falls under technical support."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "my router keeps restarting",
+      "gold": "technical_support",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a recurring device problem with their router."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a device malfunction (router restarting), which is a connectivity/device issue handled by technical support."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a hardware malfunction with their telecom equipment restarting repeatedly."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "everything is so slow today",
+      "gold": "technical_support",
       "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "medium",
+          "reasoning": "The user appears to be reporting slow telecom service or connectivity, though the exact service is unspecified."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "medium",
+          "reasoning": "The user is reporting slow performance, which suggests a connectivity or service issue best classified as technical support."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting slow service or connection speeds, which falls under technical issues and service problems."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "the connection drops every few minutes",
+      "gold": "technical_support",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user reports an intermittent connectivity problem requiring technical assistance."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a recurring connectivity problem, which is a technical support issue."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting an intermittent connectivity issue, which falls under technical support."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "nothing loads when I open my browser",
+      "gold": "technical_support",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a connectivity or browser-loading problem that requires technical troubleshooting."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a connectivity/service problem where their browser fails to load anything, which is a technical support issue."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a connectivity issue where webpages fail to load in their browser."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "my signal has been terrible since yesterday",
+      "gold": "technical_support",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user reports a recent mobile signal problem, which is a connectivity/service issue."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a connectivity/signal problem, which falls under technical support."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting an ongoing connectivity and network signal issue."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "the little lights on my modem are all red",
+      "gold": "technical_support",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "Red modem indicator lights suggest a device or connectivity problem requiring troubleshooting."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is describing a device/connectivity issue indicated by modem status lights, which falls under technical support."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a device and connectivity issue indicated by red status lights on their modem."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "I keep getting kicked offline during calls",
+      "gold": "technical_support",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user reports a recurring connectivity problem during calls."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a connectivity/service problem with dropped calls, which is a technical support issue."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting dropped connections during calls, which is a technical service issue."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "pages take forever to open",
+      "gold": "technical_support",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting slow internet or service performance when loading web pages."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting slow internet performance, which is a connectivity/service issue."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting slow web browsing speeds, which indicates an internet connectivity or service performance issue."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "there's no service on my phone at all",
+      "gold": "technical_support",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user reports a complete loss of phone service, which is a connectivity or service problem."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a complete loss of service/connectivity on their phone, which is a technical support issue."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a complete lack of mobile network connectivity or service on their device."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "wifi works but it's painfully slow",
+      "gold": "technical_support",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a Wi-Fi performance problem involving very slow connectivity."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user reports a connectivity performance issue with their wifi, which is a technical support matter."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting an issue with slow internet speed, which is a connectivity problem requiring technical assistance."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "my tv box won't turn on",
+      "gold": "technical_support",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user reports a device problem with their TV box not powering on."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a device malfunction (TV box not turning on), which is a technical support issue."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a hardware malfunction with their TV box, which requires device troubleshooting."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "I have an outage in my area",
+      "gold": "technical_support",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a service outage in their area."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a service outage, which falls under connectivity and service problems."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is reporting a network or service outage in their area, which directly falls under technical support."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "what plans do you offer",
+      "gold": "info_lookup",
+      "difficulty": "easy",
       "context": "",
       "judges": {
         "openai": {
           "intent": "info_lookup",
           "confidence": "high",
-          "reasoning": "The user is asking for details about what is included in a subscription package."
+          "reasoning": "The user is asking for information about available telecom plans."
+        },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about available plans, which falls under info_lookup regarding plans, prices, and packages."
         },
         "google": {
           "intent": "info_lookup",
           "confidence": "high",
-          "reasoning": "The user is asking for details about the features and package contents of a specific plan tier."
+          "reasoning": "The user is directly inquiring about available service plans, which matches the info_lookup category."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "how much does the fiber package cost",
+      "gold": "info_lookup",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for pricing information about a fiber package."
+        },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about pricing details for a fiber package, which falls under plans/prices/packages lookup."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is inquiring about the pricing of a specific service package, which falls directly under plans and pricing information lookup."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "do you have any student discounts",
+      "gold": "info_lookup",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about available discounts or offers for students."
+        },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about available discounts/offers, which falls under plans and pricing information lookup."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about available promotional offers or pricing discounts for students, which falls under info_lookup."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "what are your roaming rates",
+      "gold": "info_lookup",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for information about roaming prices."
+        },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for pricing information about roaming, which falls under plans/prices/offers/roaming lookup."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for general roaming rates and pricing information, which falls directly under info_lookup."
         }
       },
       "router": "info_lookup",
@@ -175,10 +1044,15 @@
           "confidence": "high",
           "reasoning": "The user is asking for information about available broadband service speeds."
         },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for information about broadband speed plans/offerings, which falls under general plan/service info lookup rather than a specific technical issue."
+        },
         "google": {
           "intent": "info_lookup",
           "confidence": "high",
-          "reasoning": "The user is asking for general information regarding available broadband speeds, which falls under inquiring about plan and service offerings."
+          "reasoning": "The user is inquiring about available broadband speed offerings and specifications, which falls under general information lookup."
         }
       },
       "router": "info_lookup",
@@ -186,170 +1060,288 @@
       "matches_gold_all": true
     },
     {
-      "message": "nothing loads when I open my browser",
-      "gold": "technical_support",
-      "difficulty": "hard",
-      "context": "",
-      "judges": {
-        "openai": {
-          "intent": "technical_support",
-          "confidence": "high",
-          "reasoning": "The user is reporting a browser connectivity or service-loading problem that requires troubleshooting."
-        },
-        "google": {
-          "intent": "technical_support",
-          "confidence": "high",
-          "reasoning": "The user is experiencing an internet connectivity issue where web pages are failing to load in their browser."
-        }
-      },
-      "router": "technical_support",
-      "unanimous": true,
-      "matches_gold_all": true
-    },
-    {
-      "message": "pages take forever to open",
-      "gold": "technical_support",
-      "difficulty": "hard",
-      "context": "",
-      "judges": {
-        "openai": {
-          "intent": "technical_support",
-          "confidence": "high",
-          "reasoning": "The user is reporting slow internet or connectivity performance when loading web pages."
-        },
-        "google": {
-          "intent": "technical_support",
-          "confidence": "high",
-          "reasoning": "The user is reporting slow browsing speeds, which is a network connectivity and performance issue handled by technical support."
-        }
-      },
-      "router": "technical_support",
-      "unanimous": true,
-      "matches_gold_all": true
-    },
-    {
-      "message": "connect me with a supervisor immediately",
-      "gold": "escalation",
+      "message": "is there a contract or is it month to month",
+      "gold": "info_lookup",
       "difficulty": "medium",
       "context": "",
       "judges": {
         "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about plan contract terms, specifically whether service requires a contract or is month-to-month."
+        },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about plan/contract terms, which falls under info_lookup for plans and packages."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about plan terms and whether services require a contract or are month-to-month, which falls under info_lookup."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "what's included in the premium subscription",
+      "gold": "info_lookup",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for details about what is included in a subscription package."
+        },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about the features/contents of a subscription plan, which falls under plan/package information lookup."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is inquiring about the features and inclusions of a specific subscription package."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "which package is best for a family of four",
+      "gold": "info_lookup",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for a package recommendation, which falls under plans and offers."
+        },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about plans/packages suitable for their family, which falls under info_lookup for plans and offers."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is inquiring about recommendations and details for plan packages suited for a family."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "do you sell international calling add-ons",
+      "gold": "info_lookup",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about the availability of an international calling add-on."
+        },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about available plans or add-ons for international calling, which falls under info lookup regarding offers/packages."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about the availability of plan packages and add-on options for international calling."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "what would it cost to upgrade my speed",
+      "gold": "info_lookup",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for pricing information about upgrading their internet speed."
+        },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "medium",
+          "reasoning": "The user is asking about pricing for an upgraded plan/speed, which falls under plans and pricing information lookup."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is inquiring about the pricing and options for upgrading their internet speed/plan."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "are there any current promotions",
+      "gold": "info_lookup",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about current promotional offers."
+        },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about current promotions, which relates to plans, offers, and packages."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is inquiring about available deals and offers, which falls under information lookup for plans, prices, and promotions."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "can I bundle tv and internet together",
+      "gold": "info_lookup",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking whether a TV and internet bundle or package is available."
+        },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about available plans/packages (bundling TV and internet), which falls under info_lookup."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about plan and package bundling options for TV and internet services."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "what's the difference between your two fiber tiers",
+      "gold": "info_lookup",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for information comparing two available fiber service tiers."
+        },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about plan/package details (fiber tiers), which falls under info_lookup."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for a comparison between different fiber plan tiers, which fits plan and package information lookup."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "do you offer service in rural areas",
+      "gold": "info_lookup",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about service availability or coverage in rural areas."
+        },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about service availability/coverage, which falls under general plan/service information lookup."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about network coverage and service availability in rural regions, which falls under general information lookup."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "how fast is your fastest broadband option",
+      "gold": "info_lookup",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for information about the speed of the fastest available broadband plan."
+        },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking about broadband plan speeds/options, which relates to product/plan information rather than a technical issue or billing."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for package specifications regarding the speed of available broadband plans."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "I want to speak to a human",
+      "gold": "escalation",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
           "intent": "escalation",
           "confidence": "high",
-          "reasoning": "The user explicitly requests immediate connection to a supervisor."
+          "reasoning": "The user explicitly requests to speak with a human agent."
+        },
+        "anthropic": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly requests to speak with a human agent, which is a direct escalation request."
         },
         "google": {
           "intent": "escalation",
           "confidence": "high",
-          "reasoning": "The user explicitly demands to speak with a human supervisor immediately."
+          "reasoning": "The user is directly asking to be transferred to a human agent, which is a clear escalation request."
         }
       },
       "router": "escalation",
-      "unanimous": true,
-      "matches_gold_all": true
-    },
-    {
-      "message": "...",
-      "gold": "fallback",
-      "difficulty": "easy",
-      "context": "",
-      "judges": {
-        "openai": {
-          "intent": "fallback",
-          "confidence": "high",
-          "reasoning": "The message contains only an ellipsis and provides no discernible request or topic."
-        },
-        "google": {
-          "intent": "fallback",
-          "confidence": "high",
-          "reasoning": "The user message contains only punctuation with no discernible intent or clear meaning."
-        }
-      },
-      "router": "fallback",
-      "unanimous": true,
-      "matches_gold_all": true
-    },
-    {
-      "message": "my bill seems too high",
-      "gold": "billing",
-      "difficulty": "easy",
-      "context": "",
-      "judges": {
-        "openai": {
-          "intent": "billing",
-          "confidence": "high",
-          "reasoning": "The user is concerned that their bill amount is higher than expected."
-        },
-        "google": {
-          "intent": null,
-          "confidence": null,
-          "reasoning": "ERROR: Error calling model 'gemini-3.7-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.7-flash\\nPlease retry in 46.319219555s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.7-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '46s'}]}}"
-        }
-      },
-      "router": "billing",
-      "unanimous": false,
-      "matches_gold_all": false
-    },
-    {
-      "message": "what's the weather like",
-      "gold": "fallback",
-      "difficulty": "medium",
-      "context": "",
-      "judges": {
-        "openai": {
-          "intent": "fallback",
-          "confidence": "high",
-          "reasoning": "A weather query is outside the telecom customer-service scope."
-        },
-        "google": {
-          "intent": null,
-          "confidence": null,
-          "reasoning": "ERROR: Error calling model 'gemini-3.7-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.7-flash\\nPlease retry in 10.694632455s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.7-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '10s'}]}}"
-        }
-      },
-      "router": "fallback",
-      "unanimous": false,
-      "matches_gold_all": false
-    },
-    {
-      "message": "that's awesome, appreciate it",
-      "gold": "chitchat",
-      "difficulty": "medium",
-      "context": "",
-      "judges": {
-        "openai": {
-          "intent": "chitchat",
-          "confidence": "high",
-          "reasoning": "The user is expressing appreciation and positive small talk."
-        },
-        "google": {
-          "intent": null,
-          "confidence": null,
-          "reasoning": "ERROR: Error calling model 'gemini-3.7-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.7-flash\\nPlease retry in 32.541504638s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.7-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '32s'}]}}"
-        }
-      },
-      "router": "chitchat",
-      "unanimous": false,
-      "matches_gold_all": false
-    },
-    {
-      "message": "how are you today",
-      "gold": "chitchat",
-      "difficulty": "easy",
-      "context": "",
-      "judges": {
-        "openai": {
-          "intent": "chitchat",
-          "confidence": "high",
-          "reasoning": "The user is making casual small talk by asking how the assistant is doing."
-        },
-        "google": {
-          "intent": "chitchat",
-          "confidence": "high",
-          "reasoning": "The user's message is standard polite small talk and greeting with no telecom-related request."
-        }
-      },
-      "router": "chitchat",
       "unanimous": true,
       "matches_gold_all": true
     },
@@ -364,15 +1356,1294 @@
           "confidence": "high",
           "reasoning": "The user explicitly requests to speak with a human agent."
         },
+        "anthropic": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is explicitly requesting to speak with a human agent, which is a direct escalation request."
+        },
         "google": {
-          "intent": null,
-          "confidence": null,
-          "reasoning": "ERROR: Error calling model 'gemini-3.7-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.7-flash\\nPlease retry in 28.083163893s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.7-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '28s'}]}}"
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is explicitly requesting to be transferred to a human agent immediately."
         }
       },
       "router": "escalation",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "let me talk to a representative",
+      "gold": "escalation",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly requests to speak with a human representative."
+        },
+        "anthropic": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly requests to speak with a human representative, which is a direct escalation request."
+        },
+        "google": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is explicitly asking to speak with a human agent or representative."
+        }
+      },
+      "router": "escalation",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "I'd like to file a complaint",
+      "gold": "escalation",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly wants to file a complaint, which is categorized as escalation."
+        },
+        "anthropic": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly wants to file a complaint, which is a direct request for escalation handling."
+        },
+        "google": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is directly asking to submit a complaint, which explicitly falls under the escalation intent."
+        }
+      },
+      "router": "escalation",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "please escalate this",
+      "gold": "escalation",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly asks to escalate the matter."
+        },
+        "anthropic": {
+          "intent": "escalation",
+          "confidence": "medium",
+          "reasoning": "The user explicitly requests escalation, indicating they want to be transferred to a human or have their issue elevated."
+        },
+        "google": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly requests to escalate the conversation or issue."
+        }
+      },
+      "router": "escalation",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "this bot is useless, connect me to a person",
+      "gold": "escalation",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly requests to be connected to a human and expresses dissatisfaction with the bot."
+        },
+        "anthropic": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly expresses dissatisfaction with the bot and requests to be connected to a human agent."
+        },
+        "google": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is expressing frustration with the bot and explicitly requesting to be connected to a human representative."
+        }
+      },
+      "router": "escalation",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "I demand to speak with someone in charge",
+      "gold": "escalation",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly demands to speak with a person in authority."
+        },
+        "anthropic": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is explicitly requesting to speak with a supervisor or human representative, which is a direct request for escalation."
+        },
+        "google": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is explicitly demanding to speak with a human supervisor or manager."
+        }
+      },
+      "router": "escalation",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "can I be transferred to customer service staff",
+      "gold": "escalation",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly requests to be transferred to a human customer service representative."
+        },
+        "anthropic": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is explicitly requesting to be transferred to a human staff member, which is a direct escalation request."
+        },
+        "google": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is explicitly requesting to speak with or be transferred to a human customer service representative."
+        }
+      },
+      "router": "escalation",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "stop, I want a live person not a machine",
+      "gold": "escalation",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly requests to speak with a live human instead of the automated system."
+        },
+        "anthropic": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly requests to speak with a human agent rather than the automated system."
+        },
+        "google": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is explicitly asking to speak with a live human agent instead of interacting with an automated system."
+        }
+      },
+      "router": "escalation",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "this is unacceptable, I need to lodge a formal complaint",
+      "gold": "escalation",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly wants to lodge a formal complaint, which requires escalation."
+        },
+        "anthropic": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly wants to lodge a formal complaint, indicating a request for escalation."
+        },
+        "google": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is explicitly stating their desire to file a formal complaint, which directly maps to the escalation intent."
+        }
+      },
+      "router": "escalation",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "who can I talk to about a serious problem",
+      "gold": "escalation",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is asking to speak with someone about a serious problem, indicating a request for human assistance."
+        },
+        "anthropic": {
+          "intent": "escalation",
+          "confidence": "medium",
+          "reasoning": "The user is explicitly asking to speak with someone about a serious problem, indicating a request for human assistance rather than a specific billing or technical issue."
+        },
+        "google": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is asking to speak to a person to resolve a serious issue, matching the escalation intent."
+        }
+      },
+      "router": "escalation",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "I've had enough, put me through to an operator",
+      "gold": "escalation",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly requests to be connected to a human operator."
+        },
+        "anthropic": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly expresses frustration and requests to be connected to a human operator."
+        },
+        "google": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly demands to speak with a human operator and expresses frustration."
+        }
+      },
+      "router": "escalation",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "I want to make an official complaint about your service",
+      "gold": "escalation",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly wants to make an official complaint, which requires escalation."
+        },
+        "anthropic": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly wants to file an official complaint, which indicates a request for escalation."
+        },
+        "google": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly states they want to make an official complaint, which directly falls under the escalation intent."
+        }
+      },
+      "router": "escalation",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "connect me with a supervisor immediately",
+      "gold": "escalation",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user explicitly requests immediate contact with a supervisor."
+        },
+        "anthropic": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is explicitly requesting to speak with a human supervisor, which is a direct escalation request."
+        },
+        "google": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is explicitly requesting to be transferred to a supervisor or human agent."
+        }
+      },
+      "router": "escalation",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "get me someone who can actually help",
+      "gold": "escalation",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is asking to be connected with a human or more capable support representative."
+        },
+        "anthropic": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is explicitly requesting to be connected with a human agent, indicating dissatisfaction with automated assistance."
+        },
+        "google": {
+          "intent": "escalation",
+          "confidence": "high",
+          "reasoning": "The user is expressing frustration and explicitly demanding to be transferred to a human agent who can assist them."
+        }
+      },
+      "router": "escalation",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "hi there",
+      "gold": "chitchat",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a simple greeting."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a simple greeting with no specific request, fitting the chitchat category."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user message is a standard greeting with no specific query or service request."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "hello",
+      "gold": "chitchat",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a simple greeting."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a simple greeting with no specific request, fitting the chitchat category."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user message is a standard greeting, which directly falls under the chitchat intent."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "thanks so much",
+      "gold": "chitchat",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is expressing thanks, which is casual conversational interaction."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a simple expression of gratitude with no request for information or service, fitting the chitchat category."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is expressing gratitude, which is standard conversational small talk."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "how are you today",
+      "gold": "chitchat",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is making casual small talk by asking how the assistant is doing."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a casual greeting/small talk with no service-related content."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is engaging in polite small talk, which fits the chitchat intent."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "good morning",
+      "gold": "chitchat",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a simple greeting."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a simple greeting with no request for information or support."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user message is a standard greeting, which falls under chitchat."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "you're doing great",
+      "gold": "chitchat",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is offering a friendly compliment rather than asking about a telecom service."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a casual compliment with no service-related content, fitting the chitchat category."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is offering a friendly compliment or small talk, which fits directly under chitchat."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "have a nice day",
+      "gold": "chitchat",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is offering a polite conversational farewell."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a casual pleasantry with no service-related content, fitting the chitchat category."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is offering a polite farewell or pleasantry, which falls under small talk and greetings."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "that's awesome, appreciate it",
+      "gold": "chitchat",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is expressing appreciation and positive small talk."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a casual expression of thanks/appreciation with no service-related request."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is expressing gratitude and positive feedback, which is standard social pleasantry categorized under chitchat."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "lol okay",
+      "gold": "chitchat",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is casual conversational acknowledgment without a service-related request."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "medium",
+          "reasoning": "The message is a casual, conversational acknowledgment without any service-related content, fitting the chitchat category."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The phrase 'lol okay' is an informal conversational acknowledgment without any specific service request or query."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "nice to meet you",
+      "gold": "chitchat",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a polite social greeting with no service-related request."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a social greeting with no service-related content, fitting the chitchat category."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The phrase 'nice to meet you' is a polite social greeting and standard small talk."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "hey what's up",
+      "gold": "chitchat",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is making a casual greeting and engaging in small talk."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a casual greeting with no service-related content, fitting chitchat."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is using an informal greeting and engaging in small talk without requesting specific account or telecom assistance."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "cool, thank you",
+      "gold": "chitchat",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is expressing casual appreciation and thanks."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a casual expression of thanks with no request for information or service, indicating small talk."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is expressing appreciation and polite closure, which clearly falls under chitchat."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "just saying hi",
+      "gold": "chitchat",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is simply offering a casual greeting."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a casual greeting with no service-related request."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is offering a simple greeting without requesting telecom service or support."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "you're the best",
+      "gold": "chitchat",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is offering a casual compliment, which is small talk."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a casual, complimentary remark unrelated to any service issue, fitting the chitchat category."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is giving a compliment, which falls under general small talk and pleasantries."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "okay great talk soon",
+      "gold": "chitchat",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is making a casual conversational sign-off."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a casual conversational closing with no specific service request, fitting the chitchat category."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is concluding the conversation with a standard farewell phrase, which categorizes as chitchat."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "asdfghjkl",
+      "gold": "fallback",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The message is gibberish and does not express a recognizable telecom-related request."
+        },
+        "anthropic": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The message is gibberish with no discernible meaning or intent."
+        },
+        "google": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The message is random keyboard mash with no decipherable intent or meaning."
+        }
+      },
+      "router": "fallback",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "what's the weather like",
+      "gold": "fallback",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "A weather query is outside the telecom customer-service intents."
+        },
+        "anthropic": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The query about weather is unrelated to telecom services and falls outside the scope of billing, technical support, info lookup, escalation, or chitchat."
+        },
+        "google": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The inquiry is about the weather, which is out-of-scope for a telecom customer support bot."
+        }
+      },
+      "router": "fallback",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "can you write me a poem",
+      "gold": "fallback",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "A request to write a poem is out of scope for a telecom customer-service chatbot."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "medium",
+          "reasoning": "The request for a poem is casual, non-telecom small talk rather than a service-related query."
+        },
+        "google": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "Asking to write a poem is out-of-scope for a telecom customer support bot."
+        }
+      },
+      "router": "chitchat",
       "unanimous": false,
       "matches_gold_all": false
+    },
+    {
+      "message": "what year did the company get founded",
+      "gold": "fallback",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The user is asking for company history, which is outside the listed telecom service intents."
+        },
+        "anthropic": {
+          "intent": "fallback",
+          "confidence": "medium",
+          "reasoning": "This question about the company's founding year is out-of-scope for billing, technical support, plans, escalation, or chitchat, so it falls under fallback."
+        },
+        "google": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "Asking for the company's founding year is general trivia and out of scope for telecom customer support."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "do you know any good recipes",
+      "gold": "fallback",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The user is asking for recipes, which is outside the telecom customer-service scope."
+        },
+        "anthropic": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The request for recipes is unrelated to telecom services and falls outside the scope of the chatbot's supported intents."
+        },
+        "google": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "Asking for cooking recipes is completely out-of-scope for a telecom customer-service chatbot."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "tell me a joke",
+      "gold": "fallback",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "Asking for a joke is casual conversation and best fits chitchat."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is requesting casual, non-service-related entertainment, which falls under small talk."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "Asking for a joke is a standard casual interaction classified under small talk or chitchat."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": false
+    },
+    {
+      "message": "...",
+      "gold": "fallback",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The message contains only an ellipsis and provides no discernible request or topic."
+        },
+        "anthropic": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The message contains no discernible content or intent, just ellipsis, making it unclear or out-of-scope."
+        },
+        "google": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The message consists solely of punctuation marks with no clear semantic meaning or actionable request."
+        }
+      },
+      "router": "fallback",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "I love your logo design",
+      "gold": "fallback",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is offering a casual compliment about the company's logo."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is a casual, non-service-related compliment about the company's logo, fitting small talk rather than any support or info category."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is making a casual compliment about the logo design, which constitutes small talk and fits the chitchat intent."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": false
+    },
+    {
+      "message": "what's your favorite movie",
+      "gold": "fallback",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is asking a casual personal-preference question, which is small talk."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The message is casual small talk unrelated to telecom services, fitting the chitchat category."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is engaging in casual small talk with the chatbot rather than requesting telecom service or support."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": false
+    },
+    {
+      "message": "translate this to french for me",
+      "gold": "fallback",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The user is requesting translation, which is outside the telecom customer-service intents."
+        },
+        "anthropic": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "Requesting a translation service is out-of-scope for a telecom customer-service chatbot."
+        },
+        "google": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "A request for language translation is out-of-scope for a telecom customer service chatbot."
+        }
+      },
+      "router": "fallback",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "qwerty 12345",
+      "gold": "fallback",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The message is gibberish and does not express a recognizable telecom-related request."
+        },
+        "anthropic": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The message 'qwerty 12345' is gibberish with no discernible meaning or request related to telecom services."
+        },
+        "google": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The message consists of random keyboard characters and numbers with no clear request or meaning."
+        }
+      },
+      "router": "fallback",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "are you a real person or a robot",
+      "gold": "fallback",
+      "difficulty": "hard",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is making small talk by asking whether the assistant is a human or a robot."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is engaging in casual conversation about the nature of the assistant, unrelated to billing, technical issues, or account info."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is asking about the bot's identity, which falls under small talk/chitchat."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": false
+    },
+    {
+      "message": "who made you",
+      "gold": "fallback",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is asking a casual question about the chatbot itself."
+        },
+        "anthropic": {
+          "intent": "chitchat",
+          "confidence": "medium",
+          "reasoning": "The question is a casual, small-talk style inquiry about the bot's creator, not related to billing, support, or plan info."
+        },
+        "google": {
+          "intent": "chitchat",
+          "confidence": "high",
+          "reasoning": "The user is asking about the bot's identity and creator, which falls under small talk and chitchat."
+        }
+      },
+      "router": "chitchat",
+      "unanimous": true,
+      "matches_gold_all": false
+    },
+    {
+      "message": "can you help me with my homework",
+      "gold": "fallback",
+      "difficulty": "medium",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "Homework assistance is outside the telecom customer-service scope."
+        },
+        "anthropic": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The request is unrelated to telecom services such as billing, technical support, or plans, making it out-of-scope for this chatbot."
+        },
+        "google": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "Asking for homework help is out-of-scope for a telecom customer support bot."
+        }
+      },
+      "router": "fallback",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "random text here nothing specific",
+      "gold": "fallback",
+      "difficulty": "easy",
+      "context": "",
+      "judges": {
+        "openai": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The message is nonspecific and does not express any recognizable telecom-related request."
+        },
+        "anthropic": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The message is vague, nonspecific text with no discernible request related to any supported category."
+        },
+        "google": {
+          "intent": "fallback",
+          "confidence": "high",
+          "reasoning": "The message consists of placeholder text with no actionable or specific telecom-related intent."
+        }
+      },
+      "router": "fallback",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "123",
+      "gold": "billing",
+      "difficulty": "context",
+      "context": "User: How much do I owe?\nAssistant: Could you please provide your account ID so I can retrieve your billing details?",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is providing the requested account ID to continue a billing balance inquiry."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is providing their account ID in response to a billing inquiry about how much they owe."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is providing their account ID in direct response to the assistant's request to retrieve billing details."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "it's 456",
+      "gold": "billing",
+      "difficulty": "context",
+      "context": "User: How much do I owe?\nAssistant: Could you please provide your account ID so I can retrieve your billing details?",
+      "judges": {
+        "openai": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is providing the requested account ID to continue checking the amount owed."
+        },
+        "anthropic": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is providing their account ID in response to a billing inquiry about how much they owe."
+        },
+        "google": {
+          "intent": "billing",
+          "confidence": "high",
+          "reasoning": "The user is providing their account number to continue resolving their previous inquiry about their billing balance."
+        }
+      },
+      "router": "billing",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "since yesterday, and yes I restarted it",
+      "gold": "technical_support",
+      "difficulty": "context",
+      "context": "User: my internet keeps dropping\nAssistant: How long has this been happening, and have you tried restarting your router?",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is continuing to troubleshoot an intermittent internet connectivity problem."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is continuing to describe an ongoing internet connectivity issue and troubleshooting steps taken, which is a technical support matter."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is answering troubleshooting questions about an ongoing internet connectivity issue."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "no I haven't tried that yet",
+      "gold": "technical_support",
+      "difficulty": "context",
+      "context": "User: my internet keeps dropping\nAssistant: How long has this been happening, and have you tried restarting your router?",
+      "judges": {
+        "openai": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is responding to troubleshooting advice about an intermittent internet connection."
+        },
+        "anthropic": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is continuing the conversation about their internet connectivity issue, responding to the assistant's troubleshooting question."
+        },
+        "google": {
+          "intent": "technical_support",
+          "confidence": "high",
+          "reasoning": "The user is responding directly to a technical troubleshooting question about fixing their dropping internet connection."
+        }
+      },
+      "router": "technical_support",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "the middle one",
+      "gold": "info_lookup",
+      "difficulty": "context",
+      "context": "User: what fiber plans do you have?\nAssistant: We offer three fiber tiers: 100, 500, and 1000 Mbps. Would you like details on any?",
+      "judges": {
+        "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is referring to the 500 Mbps fiber plan and implicitly requesting more information about it."
+        },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is referring to the middle fiber plan option, continuing the prior plan inquiry, which is an info_lookup about pricing/packages."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is selecting the 500 Mbps fiber tier to get plan details following the assistant's previous question."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
+    },
+    {
+      "message": "yes tell me about the fastest",
+      "gold": "info_lookup",
+      "difficulty": "context",
+      "context": "User: what fiber plans do you have?\nAssistant: We offer three fiber tiers: 100, 500, and 1000 Mbps. Would you like details on any?",
+      "judges": {
+        "openai": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for details about the fastest available fiber plan, the 1000 Mbps tier."
+        },
+        "anthropic": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for more details about the fastest fiber plan, which is a plan/pricing information request."
+        },
+        "google": {
+          "intent": "info_lookup",
+          "confidence": "high",
+          "reasoning": "The user is asking for specific plan details regarding the fastest fiber tier offered."
+        }
+      },
+      "router": "info_lookup",
+      "unanimous": true,
+      "matches_gold_all": true
     }
   ]
 }

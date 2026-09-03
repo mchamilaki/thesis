@@ -57,11 +57,11 @@ GOLD_TO_ROUTE = {"unknown": "fallback"}
 # IMPORTANT: verify these model IDs against each provider's current docs before
 # you run. Model strings change often and a wrong one fails at the first call.
 # Whatever you use, record the exact strings and the run date in your thesis —
-# judge model versions are part of the experimental setup.
+# judge model versions are part of the experimental setup.c
 # ------------------------------------------------------------------
 PANEL = {
     "openai":    {"model": "gpt-5.6",           "cls": "ChatOpenAI"},
-    #"anthropic": {"model": "claude-opus-5",     "cls": "ChatAnthropic"},
+    "anthropic": {"model": "claude-sonnet-5",     "cls": "ChatAnthropic"},
     "google":    {"model": "gemini-3.7-flash",  "cls": "ChatGoogleGenerativeAI"},
 }
 
@@ -105,7 +105,7 @@ def build_panel(only=None):
                 llm = ChatOpenAI(model=cfg["model"], temperature=0.0)
             elif cfg["cls"] == "ChatAnthropic":
                 from langchain_anthropic import ChatAnthropic
-                llm = ChatAnthropic(model=cfg["model"], temperature=0.0)
+                llm = ChatAnthropic(model=cfg["model"],)
             elif cfg["cls"] == "ChatGoogleGenerativeAI":
                 from langchain_google_genai import ChatGoogleGenerativeAI
                 llm = ChatGoogleGenerativeAI(model=cfg["model"], temperature=0.0)
