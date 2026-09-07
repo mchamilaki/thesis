@@ -8,11 +8,7 @@ from langgraph.graph.message import add_messages
 from src.intents import Intent
 
 
-class RetrievedDoc(TypedDict):
-    """Small, serializable representation of a retrieved document."""
-    content: str
-    source: Optional[str]
-    score: Optional[float]
+
 
 
 Route = Literal[

@@ -1,3 +1,5 @@
+#main.py
+
 print("RUNNING FILE:", __file__)
 
 import os
@@ -8,6 +10,7 @@ from pydantic import BaseModel, Field
 
 from dotenv import load_dotenv
 load_dotenv()
+
 
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, BaseMessage, SystemMessage, AIMessage
@@ -34,7 +37,7 @@ def trace(state: Dict[str, Any], node: str, **extra) -> None:
 
 
 # Creates the LLM (uses your OPENAI_API_KEY from the environment)
-llm = ChatOpenAI(model="gpt-4o-mini",temperature=1.8)  
+llm = ChatOpenAI(model="gpt-4o-mini",temperature=0.0)  # Default temperature is 0.0 for deterministic behavior; will be overridden in the sweep.
 # The default temperature is 0.0 for deterministic behavior; it will be overridden in the sweep.
 #For evaluation, we will sweep over temperatures 0.0, 0.3, and 0.7 to see how the router's performance changes with different levels of randomness in its responses.
 
