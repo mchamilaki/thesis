@@ -38,7 +38,7 @@ class AgentState(TypedDict, total=False):
     current_flow: Optional[Route]  #lets the router_node remember what kind of conversation the user is currently in
 
     # Retrieval (RAG)
-    retrieved_docs: List[RetrievedDoc]
+   
     retrieval_query: str
 
     # Reasoning / outcomes
