@@ -402,7 +402,7 @@ if __name__ == "__main__":
 
     config = {"configurable": {"thread_id": "debug"}}
 
-    print("Chatbot ready. Type 'exit' to quit.")
+    print("You are chatting with an AI assistant. Type 'exit' to quit.")
 
     while True:
         user_input = input("You: ")

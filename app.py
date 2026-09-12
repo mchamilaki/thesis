@@ -166,6 +166,7 @@ with st.sidebar:
 # --- 4. Main Chat Interface ---
 st.title("Telecom Support Agent")
 st.caption("Master's Thesis Demo | LangGraph + RAG")
+st.info("You are chatting with an AI assistant.")
 
 # Display previous messages
 for message in st.session_state.messages:
